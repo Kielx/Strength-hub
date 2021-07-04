@@ -14,8 +14,15 @@ export default function App() {
   return (
     <>
       <h1>Strength-Hub</h1>
-      <input type="number" name="oneRepMax" onChange={handleChange}></input>
-      <p>{calculateIncrementsForWeek(1, calculateBase(oneRepMax))}</p>
+      <input
+        type="number"
+        name="oneRepMax"
+        data-testid="weightInput"
+        onChange={handleChange}
+      ></input>
+      <p data-testid="weightOutput">
+        {calculateIncrementsForWeek(1, calculateBase(oneRepMax))}
+      </p>
     </>
   );
 }
