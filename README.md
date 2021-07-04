@@ -4,6 +4,11 @@ A place to track your strength training plans
 
 ## App overview
 
+I want this app to follow the best practices and create it with following principles in mind:
+
+- Test driven development
+- Responsive and mobile first
+
 Strength-Hub as an MVP will feature:
 
 - [ ]  Input where the user provides their 1 Rep Max for Squat, Deadlift, Bench Press, and Overhead Press
