@@ -6,6 +6,14 @@ function calculateBase(oneRepMax) {
 }
 
 function calculateIncrementsForWeek(weekNumber, baseWeight) {
+  if (
+    weekNumber < 1 ||
+    baseWeight < 0 ||
+    isNaN(weekNumber) ||
+    isNaN(baseWeight)
+  ) {
+    return undefined;
+  }
   let calculatedWeights;
   //Calculate base weights for given week from range of 1 to 4;
   switch ((weekNumber - 1) % 4) {
@@ -37,6 +45,7 @@ function calculateIncrementsForWeek(weekNumber, baseWeight) {
         baseWeight * 0.6,
       ];
       break;
+    /* istanbul ignore next */
     default:
       break;
   }

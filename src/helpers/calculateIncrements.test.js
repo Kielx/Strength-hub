@@ -24,3 +24,30 @@ test("Properly calculates increments for given week", () => {
     expect.arrayContaining([48.2, 59, 69.8])
   );
 });
+
+test("Properly returns undefined when wrong input is provided", () => {
+  expect(calculateIncrements.calculateIncrementsForWeek(0, 0)).toEqual(
+    undefined
+  );
+  expect(calculateIncrements.calculateIncrementsForWeek(-1, 10)).toEqual(
+    undefined
+  );
+  expect(calculateIncrements.calculateIncrementsForWeek(10, -10)).toEqual(
+    undefined
+  );
+  expect(calculateIncrements.calculateIncrementsForWeek(3, -500)).toEqual(
+    undefined
+  );
+  expect(calculateIncrements.calculateIncrementsForWeek("abc", "adf")).toEqual(
+    undefined
+  );
+  expect(calculateIncrements.calculateIncrementsForWeek("abc", 120)).toEqual(
+    undefined
+  );
+  expect(calculateIncrements.calculateIncrementsForWeek(120, "abc")).toEqual(
+    undefined
+  );
+  expect(calculateIncrements.calculateIncrementsForWeek("", 120)).toEqual(
+    undefined
+  );
+});
