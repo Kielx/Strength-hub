@@ -42,7 +42,7 @@ test("Proper output is calculated and displayed", () => {
   input.forEach((input) => {
     fireEvent.change(input, { target: { value: "120" } });
     expect(input.value).toBe("120");
-    const output = screen.getAllByText(/70.28191.8/i);
+    const output = screen.getAllByText(/70.2/i);
     expect(output).toBeDefined();
   });
 });

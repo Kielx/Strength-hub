@@ -21,7 +21,7 @@ export default function App() {
     const inputList = [];
     for (const lift in oneRepMax) {
       inputList.push(
-        <OneRepMaxInput handleChange={handleChange} name={lift} />
+        <OneRepMaxInput key={lift} handleChange={handleChange} name={lift} />
       );
     }
     return inputList;
@@ -31,13 +31,13 @@ export default function App() {
     const weightProgressionList = [];
     for (const lift in oneRepMaxObj) {
       weightProgressionList.push(
-        <>
+        <div key={lift}>
           <h2>{lift}</h2>
           <MapLift
             oneRepMax={oneRepMaxObj[lift]}
             numberOfWeeks={numberOfWeeks}
           />
-        </>
+        </div>
       );
     }
     return weightProgressionList;
