@@ -10,7 +10,6 @@ export default function MapLift({ oneRepMax, numberOfWeeks, lift }) {
   const [checks, setChecks] = useState({});
 
   const handleChecked = (event) => {
-    console.log(event.target.dataset);
     setChecks({
       ...checks,
       [event.target.dataset.num]: !checks[event.target.dataset.num],
@@ -18,7 +17,6 @@ export default function MapLift({ oneRepMax, numberOfWeeks, lift }) {
     event.target.checked
       ? (event.target.parentNode.style.backgroundColor = "limeGreen")
       : (event.target.parentNode.style.backgroundColor = "white");
-    console.log(checks);
   };
 
   for (let i = 1; i <= numberOfWeeks; i++) {
@@ -27,6 +25,7 @@ export default function MapLift({ oneRepMax, numberOfWeeks, lift }) {
       return (
         <li key={index}>
           <input
+            data-testid="check"
             type="checkbox"
             data-num={`${lift}-week${i}-index${index}-weight${weight}`}
             //https://stackoverflow.com/questions/39120007/setting-a-checkbox-check-property-in-react
