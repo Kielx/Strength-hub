@@ -34,6 +34,7 @@ export default function App() {
         <div key={lift}>
           <h2>{lift}</h2>
           <MapLift
+            lift={lift}
             oneRepMax={oneRepMaxObj[lift]}
             numberOfWeeks={numberOfWeeks}
           />
