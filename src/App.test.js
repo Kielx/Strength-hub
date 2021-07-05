@@ -46,3 +46,12 @@ test("Proper output is calculated and displayed", () => {
     expect(output).toBeDefined();
   });
 });
+
+test("Test checkboxes", () => {
+  const app = render(<App />);
+  const input = app.getAllByTestId("check");
+  input.forEach((input) => {
+    fireEvent.change(input);
+    expect(input.checked).toBe(false);
+  });
+});
