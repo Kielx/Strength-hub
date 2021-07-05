@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect, Children } from "react";
 
 import {
   calculateIncrementsForWeek,
@@ -7,7 +7,13 @@ import {
 
 export default function MapLift({ oneRepMax, numberOfWeeks, lift }) {
   const lifts = [];
-  const [checks, setChecks] = useState({});
+  const [checks, setChecks] = useState(
+    JSON.parse(localStorage.getItem("checks")) || {}
+  );
+
+  useEffect(() => {
+    localStorage.setItem("checks", JSON.stringify(checks));
+  }, [checks]);
 
   const handleChecked = (event) => {
     setChecks({
@@ -23,7 +29,14 @@ export default function MapLift({ oneRepMax, numberOfWeeks, lift }) {
     let increment = calculateIncrementsForWeek(i, calculateBase(oneRepMax));
     increment = increment.map((weight, index) => {
       return (
-        <li key={index}>
+        <li
+          key={index}
+          style={
+            checks[`${lift}-week${i}-index${index}-weight${weight}`]
+              ? { backgroundColor: "limeGreen" }
+              : { backgroundColor: "white" }
+          }
+        >
           <input
             data-testid="check"
             type="checkbox"

@@ -1,14 +1,20 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import MapLift from "./components/mappedLifts/MapLift";
 import OneRepMaxInput from "./components/oneRepMaxInput/OneRepMaxInput";
 
 export default function App() {
-  const [oneRepMax, setOneRepMax] = useState({
-    Squat: 0,
-    Deadlift: 0,
-    "Bench Press": 0,
-    "Overhead Press": 0,
-  });
+  const [oneRepMax, setOneRepMax] = useState(
+    JSON.parse(localStorage.getItem("oneRepMax")) || {
+      Squat: 0,
+      Deadlift: 0,
+      "Bench Press": 0,
+      "Overhead Press": 0,
+    }
+  );
+
+  useEffect(() => {
+    localStorage.setItem("oneRepMax", JSON.stringify(oneRepMax));
+  }, [oneRepMax]);
 
   const handleChange = (event) => {
     setOneRepMax((prevState) => ({
@@ -21,7 +27,12 @@ export default function App() {
     const inputList = [];
     for (const lift in oneRepMax) {
       inputList.push(
-        <OneRepMaxInput key={lift} handleChange={handleChange} name={lift} />
+        <OneRepMaxInput
+          key={lift}
+          handleChange={handleChange}
+          name={lift}
+          oneRepMax={oneRepMax[lift]}
+        />
       );
     }
     return inputList;

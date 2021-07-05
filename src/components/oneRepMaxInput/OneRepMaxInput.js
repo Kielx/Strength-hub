@@ -1,6 +1,6 @@
 import { React } from "react";
 
-export default function OneRepMaxInput({ handleChange, name }) {
+export default function OneRepMaxInput({ handleChange, name, oneRepMax }) {
   return (
     <>
       <label htmlFor={name}>{name}</label>
@@ -9,6 +9,7 @@ export default function OneRepMaxInput({ handleChange, name }) {
         name={name}
         data-testid="weightInput"
         onChange={handleChange}
+        value={oneRepMax}
       ></input>
     </>
   );
