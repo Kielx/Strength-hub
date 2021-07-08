@@ -1,1 +1,10 @@
-{}
+{
+  "auth": {
+    "strengthhub3e97cb7b": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}

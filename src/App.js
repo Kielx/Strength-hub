@@ -1,8 +1,9 @@
 import { React, useState, useEffect } from "react";
 import MapLift from "./components/mappedLifts/MapLift";
 import OneRepMaxInput from "./components/oneRepMaxInput/OneRepMaxInput";
+import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 
-export default function App() {
+function App() {
   const [oneRepMax, setOneRepMax] = useState(
     JSON.parse(localStorage.getItem("oneRepMax")) || {
       Squat: 0,
@@ -70,6 +71,7 @@ export default function App() {
   return (
     <>
       <h1>Strength-Hub</h1>
+      <AmplifySignOut />
       {createInputsList(oneRepMax)}
       <div
         style={{
@@ -81,3 +83,5 @@ export default function App() {
     </>
   );
 }
+
+export default withAuthenticator(App);
