@@ -33,7 +33,7 @@ export default function MapLift({
   let begin = currentWeek <= 3 ? 1 : currentWeek - 2;
   for (let i = 1; i <= begin + numberOfWeeks; i++) {
     let increment = calculateIncrementsForWeek(i, calculateBase(oneRepMax));
-    increment = increment.map((weight, index) => {
+    increment = increment?.map((weight, index) => {
       return (
         <li
           key={index}
