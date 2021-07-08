@@ -2,6 +2,10 @@ import { React, useState, useEffect } from "react";
 import MapLift from "./components/mappedLifts/MapLift";
 import OneRepMaxInput from "./components/oneRepMaxInput/OneRepMaxInput";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
+import { I18n } from "aws-amplify";
+import { dict } from "./helpers/trans";
+
+I18n.putVocabularies(dict);
 
 function App() {
   const [oneRepMax, setOneRepMax] = useState(
