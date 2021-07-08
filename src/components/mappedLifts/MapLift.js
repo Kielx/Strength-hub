@@ -5,7 +5,13 @@ import {
   calculateBase,
 } from "../../helpers/calculateIncrements";
 
-export default function MapLift({ oneRepMax, numberOfWeeks, lift }) {
+export default function MapLift({
+  oneRepMax,
+  numberOfWeeks,
+  lift,
+  setCurrentWeek,
+  currentWeek,
+}) {
   const lifts = [];
   const [checks, setChecks] = useState(
     JSON.parse(localStorage.getItem("checks")) || {}
@@ -24,8 +30,8 @@ export default function MapLift({ oneRepMax, numberOfWeeks, lift }) {
       ? (event.target.parentNode.style.backgroundColor = "limeGreen")
       : (event.target.parentNode.style.backgroundColor = "white");
   };
-
-  for (let i = 1; i <= numberOfWeeks; i++) {
+  let begin = currentWeek <= 3 ? 1 : currentWeek - 2;
+  for (let i = 1; i <= begin + numberOfWeeks; i++) {
     let increment = calculateIncrementsForWeek(i, calculateBase(oneRepMax));
     increment = increment.map((weight, index) => {
       return (
@@ -51,8 +57,13 @@ export default function MapLift({ oneRepMax, numberOfWeeks, lift }) {
       );
     });
     lifts.push(
-      <ul key={i}>
+      <ul key={i} style={{ listStyle: "none" }}>
         {`Week ${i}`}
+        <input
+          type="checkbox"
+          onChange={(e) => setCurrentWeek(i + 1)}
+          placeholder="Current Week"
+        ></input>
         {increment}
       </ul>
     );

@@ -12,6 +12,8 @@ export default function App() {
     }
   );
 
+  const [currentWeek, setCurrentWeek] = useState(6);
+
   useEffect(() => {
     localStorage.setItem("oneRepMax", JSON.stringify(oneRepMax));
   }, [oneRepMax]);
@@ -42,12 +44,22 @@ export default function App() {
     const weightProgressionList = [];
     for (const lift in oneRepMaxObj) {
       weightProgressionList.push(
-        <div key={lift}>
+        <div
+          key={lift}
+          style={{
+            width: "70%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <h2>{lift}</h2>
           <MapLift
             lift={lift}
             oneRepMax={oneRepMaxObj[lift]}
             numberOfWeeks={numberOfWeeks}
+            currentWeek={currentWeek}
+            setCurrentWeek={setCurrentWeek}
           />
         </div>
       );
@@ -59,7 +71,13 @@ export default function App() {
     <>
       <h1>Strength-Hub</h1>
       {createInputsList(oneRepMax)}
-      {createWeightProgressionList(oneRepMax, 6)}
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        {createWeightProgressionList(oneRepMax, 6)}
+      </div>
     </>
   );
 }
