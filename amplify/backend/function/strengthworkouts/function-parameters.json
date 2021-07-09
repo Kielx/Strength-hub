@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "auth": {
+      "strengthhub3e97cb7b": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "storage": {
+      "workoutsDB": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "strengthhub3e97cb7b": {}
+      },
+      "function": {
+        "strengthworkouts": {
+          "deploymentBucketName": "amplify-amplify8bd2dc910a834-staging-144954-deployment",
+          "s3Key": "amplify-builds/strengthworkouts-585642593047376c715a-build.zip"
+        }
       }
     }
   }

@@ -1,0 +1,42 @@
+{
+  "paths": [
+    {
+      "name": "/api/strengthworkouts",
+      "lambdaFunction": "strengthworkouts",
+      "privacy": {
+        "private": true,
+        "auth": [
+          "/POST",
+          "/GET",
+          "/PUT",
+          "/PATCH",
+          "/DELETE"
+        ]
+      },
+      "policyResourceName": "/api/strengthworkouts"
+    }
+  ],
+  "resourceName": "strengthworkouts",
+  "apiName": "strengthworkouts",
+  "functionArns": [
+    {
+      "lambdaFunction": "strengthworkouts"
+    }
+  ],
+  "privacy": {
+    "auth": 1,
+    "unauth": 0,
+    "authRoleName": "amplify-amplify8bd2dc910a834-staging-144954-authRole",
+    "unAuthRoleName": "amplify-amplify8bd2dc910a834-staging-144954-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "strengthworkouts",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}
