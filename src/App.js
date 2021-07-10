@@ -1,15 +1,26 @@
 import { React, useState, useEffect } from "react";
+
+import {
+  AmplifySignOut,
+  AmplifyAuthenticator,
+  AmplifySignIn,
+} from "@aws-amplify/ui-react";
+import { Auth, API, I18n } from "aws-amplify";
+import { dict } from "./helpers/trans";
+import { Switch, Route, Link, Redirect } from "react-router-dom";
+import Home from "./pages/home/Home";
+import Workouts from "./pages/workouts/workouts";
+import NotFound from "./pages/notFound/NotFound";
 import MapLift from "./components/mappedLifts/MapLift";
 import OneRepMaxInput from "./components/oneRepMaxInput/OneRepMaxInput";
-import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
-import { I18n } from "aws-amplify";
-import { dict } from "./helpers/trans";
-import { Auth } from "aws-amplify";
-import { API } from "aws-amplify";
+import useUserStatus from "./components/userStatus";
 
 I18n.putVocabularies(dict);
 
 function App() {
+  const userStatus = useUserStatus();
+  const isLoggedIn = null !== userStatus;
+
   const [oneRepMax, setOneRepMax] = useState(
     JSON.parse(localStorage.getItem("oneRepMax")) || {
       Squat: 0,
@@ -136,14 +147,54 @@ function App() {
 
   return (
     <>
-      <h1>Strength-Hub</h1>
+      <header
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "1vw",
+        }}
+      >
+        <h1>Strength-Hub</h1>
+        <Link to="/">
+          <button>Home</button>
+        </Link>
+        <Link to="/workouts">
+          {" "}
+          <button>Workouts</button>
+        </Link>
+        <Link to="/login">
+          {" "}
+          <button>Login</button>
+        </Link>
+        {isLoggedIn ? <AmplifySignOut /> : null}
+      </header>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/login">
+          {isLoggedIn ? (
+            <Redirect to="/workouts" />
+          ) : (
+            <AmplifyAuthenticator>
+              <AmplifySignIn></AmplifySignIn>
+            </AmplifyAuthenticator>
+          )}
+        </Route>
+        <Route exact path="/workouts">
+          {isLoggedIn ? <Workouts /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
       <button onClick={() => logAuth(Auth)}> Log in with Auth0</button>
       <button onClick={() => getOneRepMax(Auth)}> GetoneRepMax</button>
       <button onClick={() => updateOneRepMax(Auth, 140)}>
         UpdateOneRepMax
       </button>
       <button onClick={() => deleteOneRepMax(Auth)}>Delete one rep max</button>
-      <AmplifySignOut />
+
       {createInputsList(oneRepMax)}
       <div
         style={{
@@ -156,4 +207,4 @@ function App() {
   );
 }
 
-export default withAuthenticator(App);
+export default App;
