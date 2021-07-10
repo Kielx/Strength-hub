@@ -46,7 +46,8 @@ app.get("/api/strengthworkouts", function (req, res) {
   res.json({
     success: "get call succeed!",
     url: req.url,
-    id: process.env.AUTH_STRENGTHHUB3E97CB7B_USERPOOLID,
+    id: req.body.id,
+    name: req.body.name,
   });
 });
 
@@ -70,11 +71,16 @@ app.post("/api/strengthworkouts", function (req, res) {
     Item: {
       id: req.body.id,
       name: req.body.name,
+      oneRepMax: req.body.oneRepMax,
     },
   };
-  if (req.body.id !== process.env.AUTH_STRENGTHHUB3E97CB7B_USERPOOLID) {
-    res.json({ err: "not authorized" });
-    return;
+  //validate the input
+  if (!params.Item.id || !params.Item.name || !params.Item.oneRepMax) {
+    res.json({ err: "Invalid input" });
+  }
+  //check input length
+  if (Object.keys(params.Item).length !== 3) {
+    res.json({ err: "Invalid input" });
   }
   docClient.put(params, function (err, data) {
     if (err) {
@@ -120,10 +126,7 @@ app.put("/api/strengthworkouts", function (req, res) {
       "#n": "name",
     },
   };
-  if (req.body.id !== process.env.AUTH_STRENGTHHUB3E97CB7B_USERPOOLID) {
-    res.json({ err: "not authorized" });
-    return;
-  }
+
   docClient.update(params, function (err, data) {
     if (err) {
       console.log(err, err.stack);
@@ -158,11 +161,6 @@ app.delete("/api/strengthworkouts", function (req, res) {
       name: req.body.name,
     },
   };
-  if (req.body.id !== process.env.AUTH_STRENGTHHUB3E97CB7B_USERPOOLID) {
-    res.json({ err: "not authorized" });
-    return;
-  }
-
   docClient.delete(params, function (err, data) {
     if (err) {
       console.log(err, err.stack);

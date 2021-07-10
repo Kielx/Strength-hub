@@ -4,6 +4,8 @@ import OneRepMaxInput from "./components/oneRepMaxInput/OneRepMaxInput";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { I18n } from "aws-amplify";
 import { dict } from "./helpers/trans";
+import { Auth } from "aws-amplify";
+import { API } from "aws-amplify";
 
 I18n.putVocabularies(dict);
 
@@ -72,9 +74,75 @@ function App() {
     return weightProgressionList;
   };
 
+  const logAuth = async (auth) => {
+    console.log(auth);
+    const user = await Auth.currentAuthenticatedUser();
+    console.log(user.username);
+    console.log(user.attributes.sub);
+  };
+
+  //get api call to get weight progression
+  const getOneRepMax = async (auth) => {
+    const user = await Auth.currentAuthenticatedUser();
+    const oneRepMax = await API.get(
+      "strengthworkouts",
+      "/api/strengthworkouts",
+      {
+        queryStringParameters: {
+          id: `${user.attributes.sub}`,
+          name: `${auth.user.username}`,
+        },
+      }
+    );
+    console.log(oneRepMax);
+    return oneRepMax;
+  };
+
+  //post api call to update weight progression
+  const updateOneRepMax = async (auth, oneRepMax) => {
+    const user = await Auth.currentAuthenticatedUser();
+    const updatedOneRepMax = await API.post(
+      "strengthworkouts",
+      "/api/strengthworkouts",
+      {
+        body: {
+          id: `${user.attributes.sub}`,
+          name: `${user.username}`,
+          oneRepMax,
+        },
+      }
+    );
+    console.log(updatedOneRepMax);
+    return updatedOneRepMax;
+  };
+
+  //delete oneRepMax
+  const deleteOneRepMax = async (auth) => {
+    const user = await Auth.currentAuthenticatedUser();
+    const deletedOneRepMax = await API.del(
+      "strengthworkouts",
+      "/api/strengthworkouts",
+      {
+        body: {
+          id: `${user.attributes.sub}`,
+          name: `${user.username}`,
+          oneRepMax,
+        },
+      }
+    );
+    console.log(deletedOneRepMax);
+    return deletedOneRepMax;
+  };
+
   return (
     <>
       <h1>Strength-Hub</h1>
+      <button onClick={() => logAuth(Auth)}> Log in with Auth0</button>
+      <button onClick={() => getOneRepMax(Auth)}> GetoneRepMax</button>
+      <button onClick={() => updateOneRepMax(Auth, 140)}>
+        UpdateOneRepMax
+      </button>
+      <button onClick={() => deleteOneRepMax(Auth)}>Delete one rep max</button>
       <AmplifySignOut />
       {createInputsList(oneRepMax)}
       <div
