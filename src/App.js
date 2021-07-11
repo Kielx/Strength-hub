@@ -164,7 +164,7 @@ function App() {
               <Workouts />
             </>
           ) : (
-            <Redirect to="/login" />
+            <Redirect to="/" />
           )}
         </Route>
         <Route path="*">

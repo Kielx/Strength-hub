@@ -11,13 +11,16 @@ const header = ({ isLoggedIn }) => {
       }}
     >
       <h1>Strength-Hub</h1>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
-      <Link to="/workouts">
-        {" "}
-        <button>Workouts</button>
-      </Link>
+      {isLoggedIn ? (
+        <>
+          <Link to="/">
+            <button>Home</button>
+          </Link>
+          <Link to="/workouts">
+            <button>Workouts</button>
+          </Link>
+        </>
+      ) : null}
       {isLoggedIn ? (
         <AmplifySignOut />
       ) : (
