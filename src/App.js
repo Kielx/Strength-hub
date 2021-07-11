@@ -1,13 +1,9 @@
 import { React, useState, useEffect } from "react";
-
-import {
-  AmplifySignOut,
-  AmplifyAuthenticator,
-  AmplifySignIn,
-} from "@aws-amplify/ui-react";
+import { AmplifyAuthenticator, AmplifySignIn } from "@aws-amplify/ui-react";
 import { Auth, API, I18n } from "aws-amplify";
 import { dict } from "./helpers/trans";
-import { Switch, Route, Link, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Header from "./components/header/header";
 import Home from "./pages/home/Home";
 import Workouts from "./pages/workouts/workouts";
 import NotFound from "./pages/notFound/NotFound";
@@ -147,29 +143,9 @@ function App() {
 
   return (
     <>
-      <header
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "1vw",
-        }}
-      >
-        <h1>Strength-Hub</h1>
-        <Link to="/">
-          <button>Home</button>
-        </Link>
-        <Link to="/workouts">
-          {" "}
-          <button>Workouts</button>
-        </Link>
-        <Link to="/login">
-          {" "}
-          <button>Login</button>
-        </Link>
-        {isLoggedIn ? <AmplifySignOut /> : null}
-      </header>
       <Switch>
         <Route exact path="/">
+          <Header isLoggedIn={isLoggedIn} />
           <Home />
         </Route>
         <Route path="/login">
@@ -182,7 +158,14 @@ function App() {
           )}
         </Route>
         <Route exact path="/workouts">
-          {isLoggedIn ? <Workouts /> : <Redirect to="/login" />}
+          {isLoggedIn ? (
+            <>
+              <Header isLoggedIn={isLoggedIn} />
+              <Workouts />
+            </>
+          ) : (
+            <Redirect to="/login" />
+          )}
         </Route>
         <Route path="*">
           <NotFound />
