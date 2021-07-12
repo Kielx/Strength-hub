@@ -64,7 +64,7 @@ const OneRepForm = () => {
     const lifts = {};
     currentWeek = parseInt(currentWeek, 10);
     let begin = currentWeek <= 3 ? 1 : currentWeek - 2;
-    for (let i = 1; i <= begin + 2; i++) {
+    for (let i = 1; i <= begin + 4; i++) {
       for (const [key, value] of Object.entries(oneRepMax)) {
         //Check if objects and properties are defined, if not set to empty
         //https://stackoverflow.com/questions/17643965/how-to-automatically-add-properties-to-an-object-that-is-undefined
@@ -80,12 +80,71 @@ const OneRepForm = () => {
     return lifts;
   }
 
+  const mappedLifts = mapLifts(oneRepMax, oneRepMax["Current Week"]);
+  const mapLiftsAgain = (mappedLifts) => {
+    const lifts = {};
+    for (const [key1, val1] of Object.entries(mappedLifts)) {
+      //iterate over outer object - key is week, value is lift object containing key: lift and value: increment
+      console.log(`${key1} : ${val1}`);
+      for (const [key2, val2] of Object.entries(val1)) {
+        //iterate over inner object - key is name of lift, value is array of increments
+        console.log(`${key2} : ${val2}`);
+        lifts[`${key1}`] = lifts[`${key1}`] || [];
+        lifts[`${key1}`].push(
+          <>
+            <h3>{key2}</h3>
+            {val2.map((item) => {
+              return (
+                <div style={{ display: "inline-flex" }}>
+                  <li key={item}>{item}</li> <input type="checkbox"></input>
+                </div>
+              );
+            })}
+          </>
+        );
+      }
+    }
+    let finalLifts = [];
+    for (const [key1, val1] of Object.entries(lifts)) {
+      //iterate over outer object - key is week, value is lift object containing key: lift and value: increment
+      console.log(`${key1} : ${val1}`);
+      finalLifts.push(
+        <div className="card">
+          <div className="card-header">
+            <h3>{key1}</h3>
+          </div>
+          <div className="card-block">
+            <ul className="list-group">
+              {val1.map((item, index) => {
+                return (
+                  <div
+                    key={`${key1} ${index}`}
+                    className="exerciseGroup"
+                    style={{
+                      display: "inline-flex",
+                      flexDirection: "column",
+                      width: "20%",
+                    }}
+                  >
+                    {item}
+                  </div>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      );
+    }
+    return finalLifts;
+  };
+  mapLiftsAgain(mappedLifts);
   return (
     <>
       <form onSubmit={handleSubmit}>
         {createInputsList(oneRepMax)}
         <input type="submit" value="Send" />
       </form>
+      {mapLiftsAgain(mappedLifts)}
     </>
   );
 };
