@@ -1,17 +1,17 @@
 import { React, useState, useEffect } from "react";
 import { Auth, API } from "aws-amplify";
+import { calculateIncrementsForWeek } from "../../helpers/calculateIncrements";
 
 const OneRepForm = () => {
   const [oneRepMax, setOneRepMax] = useState(
     JSON.parse(localStorage.getItem("oneRepMax")) || {
-      Squat: 0,
-      Deadlift: 0,
-      "Bench Press": 0,
-      "Overhead Press": 0,
+      Squat: 100,
+      Deadlift: 100,
+      "Bench Press": 100,
+      "Overhead Press": 100,
+      "Current Week": 1,
     }
   );
-
-  const [currentWeek, setCurrentWeek] = useState(6);
 
   useEffect(() => {
     localStorage.setItem("oneRepMax", JSON.stringify(oneRepMax));
@@ -50,6 +50,7 @@ const OneRepForm = () => {
           {lift}
           <input
             onChange={handleChange}
+            type="number"
             name={lift}
             value={oneRepMax[lift]}
           ></input>
@@ -59,11 +60,33 @@ const OneRepForm = () => {
     return inputList;
   };
 
+  function mapLifts(oneRepMax, currentWeek) {
+    const lifts = {};
+    currentWeek = parseInt(currentWeek, 10);
+    let begin = currentWeek <= 3 ? 1 : currentWeek - 2;
+    for (let i = 1; i <= begin + 2; i++) {
+      for (const [key, value] of Object.entries(oneRepMax)) {
+        //Check if objects and properties are defined, if not set to empty
+        //https://stackoverflow.com/questions/17643965/how-to-automatically-add-properties-to-an-object-that-is-undefined
+        if (key !== "Current Week") {
+          lifts[`week ${i}`] = lifts[`week ${i}`] || {};
+          lifts[`week ${i}`][key] = lifts[`week ${i}`][key] || [];
+          lifts[`week ${i}`][key] = lifts[`week ${i}`][key] =
+            calculateIncrementsForWeek(i, value);
+        }
+      }
+    }
+    console.log(lifts);
+    return lifts;
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
-      {createInputsList(oneRepMax)}
-      <input type="submit" value="Send" />
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        {createInputsList(oneRepMax)}
+        <input type="submit" value="Send" />
+      </form>
+    </>
   );
 };
 

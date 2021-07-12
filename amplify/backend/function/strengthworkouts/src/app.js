@@ -23,6 +23,7 @@ var awsServerlessExpressMiddleware = require("aws-serverless-express/middleware"
 // declare a new express app
 var app = express();
 var cors = require("cors"); // ADDED - for avoiding CORS in local dev
+var calculateIncrements = require("./helpers/calculateIncrements");
 app.use(cors()); // ADDED - for avoiding CORS in local dev
 app.use(bodyParser.json());
 app.use(awsServerlessExpressMiddleware.eventContext());
@@ -76,7 +77,9 @@ app.get("/api/strengthworkouts/*", function (req, res) {
     }
     if (!data.Item) {
       res.status(200).json(null);
-    } else res.status(200).json(data.Item.oneRepMax);
+    } else {
+      res.status(200).json(data.Item.oneRepMax);
+    }
   });
 });
 

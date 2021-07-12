@@ -5,7 +5,8 @@ function calculateBase(oneRepMax) {
   return baseWeight;
 }
 
-function calculateIncrementsForWeek(weekNumber, baseWeight) {
+function calculateIncrementsForWeek(weekNumber, oneRepMax) {
+  const baseWeight = oneRepMax * 0.9;
   if (
     weekNumber < 1 ||
     baseWeight < 0 ||
@@ -58,5 +59,17 @@ function calculateIncrementsForWeek(weekNumber, baseWeight) {
   return calculatedWeights;
 }
 
+function mapLifts(oneRepMax, currentWeek) {
+  const lifts = [];
+  let begin = currentWeek <= 3 ? 1 : currentWeek - 2;
+  for (let i = 1; i <= begin + 2; i++) {
+    let increment = this.calculateIncrementsForWeek(i, oneRepMax);
+    console.log(increment);
+  }
+
+  return lifts;
+}
+
+exports.mapLifts = mapLifts;
 exports.calculateBase = calculateBase;
 exports.calculateIncrementsForWeek = calculateIncrementsForWeek;

@@ -18,7 +18,7 @@
       "function": {
         "strengthworkouts": {
           "deploymentBucketName": "amplify-amplify8bd2dc910a834-staging-144954-deployment",
-          "s3Key": "amplify-builds/strengthworkouts-64417a59636762333551-build.zip"
+          "s3Key": "amplify-builds/strengthworkouts-3133504931494e4f7551-build.zip"
         }
       }
     }

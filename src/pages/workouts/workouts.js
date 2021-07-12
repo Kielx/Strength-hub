@@ -10,10 +10,13 @@ const Workouts = () => {
       Deadlift: 0,
       "Bench Press": 0,
       "Overhead Press": 0,
+      "Current Week": 1,
     }
   );
 
-  const [currentWeek, setCurrentWeek] = useState(6);
+  const [currentWeek, setCurrentWeek] = useState(
+    localStorage.getItem("currentWeek") || 1
+  );
 
   useEffect(() => {
     localStorage.setItem("oneRepMax", JSON.stringify(oneRepMax));
@@ -107,6 +110,7 @@ const Workouts = () => {
           id: `${user.attributes.sub}`,
           name: `${user.username}`,
           oneRepMax,
+          currentWeek: currentWeek,
         },
       }
     );
