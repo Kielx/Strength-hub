@@ -78,18 +78,22 @@ const Workouts = () => {
   //get api call to get weight progression
   const getOneRepMax = async (auth) => {
     const user = await Auth.currentAuthenticatedUser();
-    const oneRepMax = await API.get(
-      "strengthworkouts",
-      "/api/strengthworkouts",
-      {
-        queryStringParameters: {
-          id: `${user.attributes.sub}`,
-          name: `${auth.user.username}`,
-        },
-      }
-    );
-    console.log(oneRepMax);
-    return oneRepMax;
+    try {
+      const oneRepMax = await API.get(
+        "strengthworkouts",
+        "/api/strengthworkouts/",
+        {
+          queryStringParameters: {
+            id: `${user.attributes.sub}`,
+            name: `${auth.user.username}`,
+          },
+        }
+      );
+      console.log(oneRepMax);
+      return oneRepMax;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //post api call to update weight progression

@@ -20,9 +20,10 @@ Amplify Params - DO NOT EDIT */
 var express = require("express");
 var bodyParser = require("body-parser");
 var awsServerlessExpressMiddleware = require("aws-serverless-express/middleware");
-
 // declare a new express app
 var app = express();
+var cors = require("cors"); // ADDED - for avoiding CORS in local dev
+app.use(cors()); // ADDED - for avoiding CORS in local dev
 app.use(bodyParser.json());
 app.use(awsServerlessExpressMiddleware.eventContext());
 
@@ -38,26 +39,44 @@ const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 /**********************
- * Example get method *
+ * Get all items in DB *
  **********************/
 
-app.get("/api/strengthworkouts", function (req, res) {
-  // Add your code here
-  res.json({
-    success: "get call succeed!",
-    url: req.url,
-    id: req.body.id,
-    name: req.body.name,
-  });
-});
-
-app.get("/api/strengthworkouts/*", function (req, res) {
+/* app.get("/api/strengthworkouts/", function (req, res) {
   var params = {
-    TableName: process.env.STORAGE_WORKOUTSDB_NAME, // TODO: UPDATE THIS WITH THE ACTUAL NAME OF THE FORM TABLE ENV VAR (set by Amplify CLI)
+    TableName: process.env.STORAGE_WORKOUTSDB_NAME,
   };
   docClient.scan(params, function (err, data) {
     if (err) res.json({ err });
     else res.json({ data });
+  });
+}); */
+
+/**********************
+ * Get a single item *
+ **********************/
+
+//app.get request to get a single item from the database
+//if returned data is null, then return 404
+
+app.get("/api/strengthworkouts/*", function (req, res) {
+  var params = {
+    TableName: process.env.STORAGE_WORKOUTSDB_NAME,
+    Key: {
+      id: req.query.id,
+      name: req.query.name,
+    },
+  };
+
+  //query DynamoDB for the document
+  docClient.get(params, function (err, data) {
+    if (err) {
+      console.log(err, err.stack);
+      res.status(500).json(err);
+    }
+    if (!data.Item) {
+      res.status(200).json(null);
+    } else res.status(200).json(data.Item.oneRepMax);
   });
 });
 
@@ -77,10 +96,7 @@ app.post("/api/strengthworkouts", function (req, res) {
   //validate the input
   if (!params.Item.id || !params.Item.name || !params.Item.oneRepMax) {
     res.json({ err: "Invalid input" });
-  }
-  //check input length
-  if (Object.keys(params.Item).length !== 3) {
-    res.json({ err: "Invalid input" });
+    return;
   }
   docClient.put(params, function (err, data) {
     if (err) {
