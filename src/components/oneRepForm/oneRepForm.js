@@ -2,15 +2,7 @@ import { React, useState, useEffect } from "react";
 import { Auth, API } from "aws-amplify";
 
 const OneRepForm = () => {
-  const [oneRepMax, setOneRepMax] = useState(
-    JSON.parse(localStorage.getItem("oneRepMax")) || {
-      Squat: 100,
-      Deadlift: 100,
-      "Bench Press": 100,
-      "Overhead Press": 100,
-      "Current Week": 1,
-    }
-  );
+  const [oneRepMax, setOneRepMax] = useState("");
   const [mappedLifts, setMappedLifts] = useState("");
 
   useEffect(() => {
@@ -20,12 +12,21 @@ const OneRepForm = () => {
         ? setMappedLifts(mapLiftsAgain(maxes.fiveThreeOne))
         : setMappedLifts("NO WORKOUT DATA");
     };
+    const oneReps = async () => {
+      const oneRepMaxes = await getOneRepMax(Auth);
+      return oneRepMaxes
+        ? setOneRepMax(oneRepMaxes.oneRepMax)
+        : setOneRepMax({
+            Squat: 100,
+            Deadlift: 100,
+            "Bench Press": 100,
+            "Overhead Press": 100,
+            "Current Week": 1,
+          });
+    };
+    oneReps();
     mapLifts();
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("oneRepMax", JSON.stringify(oneRepMax));
-  }, [mappedLifts]);
 
   const handleChange = (event) => {
     setOneRepMax((prevState) => ({
