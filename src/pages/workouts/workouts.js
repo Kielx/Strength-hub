@@ -1,10 +1,10 @@
-import { React, useState, useEffect } from "react";
-import { Auth, API } from "aws-amplify";
-import MapLift from "../../components/mappedLifts/MapLift";
-import OneRepMaxInput from "../../components/oneRepMaxInput/OneRepMaxInput";
+import { React } from "react";
+import OneRepForm from "../../components/oneRepForm/oneRepForm";
 
 const Workouts = () => {
-  const [oneRepMax, setOneRepMax] = useState(
+  return <OneRepForm></OneRepForm>;
+
+  /*   const [oneRepMax, setOneRepMax] = useState(
     JSON.parse(localStorage.getItem("oneRepMax")) || {
       Squat: 0,
       Deadlift: 0,
@@ -154,7 +154,7 @@ const Workouts = () => {
         {createWeightProgressionList(oneRepMax, 6)}
       </div>
     </div>
-  );
+  ); */
 };
 
 export default Workouts;
