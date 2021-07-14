@@ -78,7 +78,7 @@ app.get("/api/strengthworkouts/*", function (req, res) {
     if (!data.Item) {
       res.status(200).json(null);
     } else {
-      res.status(200).json(data.Item.oneRepMax);
+      res.status(200).json(data.Item);
     }
   });
 });
@@ -94,8 +94,13 @@ app.post("/api/strengthworkouts", function (req, res) {
       id: req.body.id,
       name: req.body.name,
       oneRepMax: req.body.oneRepMax,
+      fiveThreeOne: calculateIncrements.mapLifts(
+        req.body.oneRepMax,
+        req.body.oneRepMax["Current Week"]
+      ),
     },
   };
+
   //validate the input
   if (!params.Item.id || !params.Item.name || !params.Item.oneRepMax) {
     res.json({ err: "Invalid input" });
@@ -105,14 +110,17 @@ app.post("/api/strengthworkouts", function (req, res) {
     if (err) {
       console.log(err, err.stack);
       res.json({
-        success: "post call failed!",
+        msg: "post call failed!",
         url: req.url,
         body: req.body,
         error: err,
       });
     } else {
       console.log("post call succeed!", data);
-      res.json({ success: "post call succeed!", url: req.url, body: req.body });
+      res.json({
+        success: "post call succeed!",
+        updated: params.Item,
+      });
     }
   });
 });

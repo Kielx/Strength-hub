@@ -19,32 +19,32 @@ function calculateIncrementsForWeek(weekNumber, oneRepMax) {
   //Calculate base weights for given week from range of 1 to 4;
   switch ((weekNumber - 1) % 4) {
     case 0:
-      calculatedWeights = [
-        baseWeight * 0.65,
-        baseWeight * 0.75,
-        baseWeight * 0.85,
-      ];
+      calculatedWeights = {
+        increments: [baseWeight * 0.65, baseWeight * 0.75, baseWeight * 0.85],
+        reps: [5, 5, 5],
+        done: [false, false, false],
+      };
       break;
     case 1:
-      calculatedWeights = [
-        baseWeight * 0.7,
-        baseWeight * 0.8,
-        baseWeight * 0.9,
-      ];
+      calculatedWeights = {
+        increments: [baseWeight * 0.7, baseWeight * 0.8, baseWeight * 0.9],
+        reps: [3, 3, 3],
+        done: [false, false, false],
+      };
       break;
     case 2:
-      calculatedWeights = [
-        baseWeight * 0.75,
-        baseWeight * 0.85,
-        baseWeight * 0.95,
-      ];
+      calculatedWeights = {
+        increments: [baseWeight * 0.75, baseWeight * 0.85, baseWeight * 0.95],
+        reps: [5, 3, 1],
+        done: [false, false, false],
+      };
       break;
     case 3:
-      calculatedWeights = [
-        baseWeight * 0.4,
-        baseWeight * 0.5,
-        baseWeight * 0.6,
-      ];
+      calculatedWeights = {
+        increments: [baseWeight * 0.4, baseWeight * 0.5, baseWeight * 0.6],
+        reps: [5, 5, 5],
+        done: [false, false, false],
+      };
       break;
     /* istanbul ignore next */
     default:
@@ -53,7 +53,7 @@ function calculateIncrementsForWeek(weekNumber, oneRepMax) {
   //Increase calculated weights according to actual week passed
   //For each four weeks, we increase the weight by 2.5
   var quotient = Math.floor((weekNumber - 1) / 4);
-  calculatedWeights = calculatedWeights.map((weight) => {
+  calculatedWeights.increments = calculatedWeights.increments.map((weight) => {
     return weight !== 0 ? (weight += 2.5 * quotient) : 0;
   });
   return calculatedWeights;
