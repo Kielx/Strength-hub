@@ -1,9 +1,6 @@
-function calculateBase(oneRepMax) {
-  //Calculate base weight for further calculations (sic!).
-  //It is 0.9 * 1RepMax
-  const baseWeight = oneRepMax * 0.9;
-  return baseWeight;
-}
+/**********************
+ * Helper Functions *
+ **********************/
 
 function calculateIncrementsForWeek(weekNumber, oneRepMax) {
   const baseWeight = oneRepMax * 0.9;
@@ -59,17 +56,29 @@ function calculateIncrementsForWeek(weekNumber, oneRepMax) {
   return calculatedWeights;
 }
 
-function mapLifts(oneRepMax, currentWeek) {
-  const lifts = [];
+const mapLifts = function (oneRepMax, currentWeek) {
+  const lifts = {};
+  currentWeek = parseInt(currentWeek, 10);
   let begin = currentWeek <= 3 ? 1 : currentWeek - 2;
-  for (let i = 1; i <= begin + 2; i++) {
-    let increment = this.calculateIncrementsForWeek(i, oneRepMax);
-    console.log(increment);
+  for (let i = 1; i <= begin + 4; i++) {
+    for (const [key, value] of Object.entries(oneRepMax)) {
+      //Check if objects and properties are defined, if not set to empty
+      //https://stackoverflow.com/questions/17643965/how-to-automatically-add-properties-to-an-object-that-is-undefined
+      if (key !== "Current Week") {
+        lifts[`week ${i}`] = lifts[`week ${i}`] || {};
+        lifts[`week ${i}`][key] = lifts[`week ${i}`][key] || {};
+        lifts[`week ${i}`][key] = {
+          increments: calculateIncrementsForWeek(i, value).increments,
+          reps: calculateIncrementsForWeek(i, value).reps,
+          done: calculateIncrementsForWeek(i, value).done,
+        };
+      }
+    }
   }
-
   return lifts;
-}
+};
 
-exports.mapLifts = mapLifts;
-exports.calculateBase = calculateBase;
-exports.calculateIncrementsForWeek = calculateIncrementsForWeek;
+module.exports = {
+  calculateIncrementsForWeek: calculateIncrementsForWeek,
+  mapLifts: mapLifts,
+};

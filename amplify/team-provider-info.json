@@ -1,0 +1,26 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify8bd2dc910a834-staging-144954-authRole",
+      "UnauthRoleArn": "arn:aws:iam::501370547852:role/amplify-amplify8bd2dc910a834-staging-144954-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::501370547852:role/amplify-amplify8bd2dc910a834-staging-144954-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-amplify8bd2dc910a834-staging-144954-deployment",
+      "UnauthRoleName": "amplify-amplify8bd2dc910a834-staging-144954-unauthRole",
+      "StackName": "amplify-amplify8bd2dc910a834-staging-144954",
+      "StackId": "arn:aws:cloudformation:eu-central-1:501370547852:stack/amplify-amplify8bd2dc910a834-staging-144954/c2162a70-dffb-11eb-9ad2-0645d6889650",
+      "AmplifyAppId": "d21g6d73fksmpu"
+    },
+    "categories": {
+      "auth": {
+        "strengthhub3e97cb7b": {}
+      },
+      "function": {
+        "strengthworkouts": {
+          "deploymentBucketName": "amplify-amplify8bd2dc910a834-staging-144954-deployment",
+          "s3Key": "amplify-builds/strengthworkouts-756e6f53736142385855-build.zip"
+        }
+      }
+    }
+  }
+}
