@@ -22,7 +22,7 @@ const header = ({ isLoggedIn }) => {
         </>
       ) : null}
       {isLoggedIn ? (
-        <AmplifySignOut />
+        <AmplifySignOut onClick={() => sessionStorage.clear()} />
       ) : (
         <Link to="/login">
           {" "}
