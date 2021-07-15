@@ -4,13 +4,15 @@ import { Auth, API } from "aws-amplify";
 const OneRepForm = () => {
   const [oneRepMax, setOneRepMax] = useState("");
   const [mappedLifts, setMappedLifts] = useState("");
+  const [preMapped, setPreMapped] = useState("");
 
   useEffect(() => {
     const mapLifts = async () => {
-      const maxes = await getOneRepMax(Auth);
-      return maxes
-        ? setMappedLifts(mapLiftsAgain(maxes.fiveThreeOne))
-        : setMappedLifts("NO WORKOUT DATA");
+      let maxes;
+      sessionStorage.getItem("preMapped")
+        ? setPreMapped(JSON.parse(sessionStorage.getItem("preMapped")))
+        : (maxes = await getOneRepMax(Auth));
+      return maxes ? setPreMapped(maxes.fiveThreeOne) : setMappedLifts("");
     };
     const oneReps = async () => {
       const oneRepMaxes = await getOneRepMax(Auth);
@@ -24,9 +26,24 @@ const OneRepForm = () => {
             "Current Week": 1,
           });
     };
-    oneReps();
+    sessionStorage.getItem("oneRepMax")
+      ? setOneRepMax(JSON.parse(sessionStorage.getItem("oneRepMax")))
+      : oneReps();
+
     mapLifts();
   }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem("oneRepMax", JSON.stringify(oneRepMax));
+  }, [oneRepMax]);
+
+  useEffect(() => {
+    sessionStorage.setItem("preMapped", JSON.stringify(preMapped));
+  }, [preMapped]);
+
+  useEffect(() => {
+    setMappedLifts(mapLiftsAgain(preMapped));
+  }, [preMapped]);
 
   const handleChange = (event) => {
     setOneRepMax((prevState) => ({
@@ -50,6 +67,7 @@ const OneRepForm = () => {
       }
     );
     console.log(updatedOneRepMax);
+    setPreMapped(updatedOneRepMax.updated.fiveThreeOne);
     setMappedLifts(mapLiftsAgain(updatedOneRepMax.updated.fiveThreeOne));
 
     return updatedOneRepMax;
