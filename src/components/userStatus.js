@@ -7,16 +7,36 @@ import { Hub } from "@aws-amplify/core";
  * https://github.com/aws-amplify/amplify-js/issues/3640
  */
 
-function useUserStatus() {
-  let [user, setUser] = useState(null);
+const _guessInitialLoginStatus = () => {
+  const flagValue = localStorage.getItem(`isUserLoggedIn`);
+
+  // If the flag is null, then the user probably isn't logged in (if you add this to your code, the user will experience a one-time-only bad guess). Otherwise, check the flag's value.
+  const isLoggedIn = null !== flagValue && flagValue === "true";
+
+  return isLoggedIn;
+};
+
+const _setFlag = (value) => {
+  const valAsString = value ? "true" : "false";
+  localStorage.setItem("isUserLoggedIn", valAsString);
+};
+
+function useIsLoggedIn() {
+  const initialGuess = _guessInitialLoginStatus();
+  let [isLoggedIn, setIsLoggedIn] = useState(initialGuess);
+
+  const _updateLoggedInState = (value) => {
+    setIsLoggedIn(value);
+    _setFlag(value);
+  };
 
   useEffect(() => {
     let updateUser = async () => {
       try {
-        let user = await Auth.currentAuthenticatedUser();
-        setUser(user);
+        await Auth.currentAuthenticatedUser();
+        _updateLoggedInState(true);
       } catch {
-        setUser(null);
+        _updateLoggedInState(false);
       }
     };
     Hub.listen("auth", updateUser); // listen for login/signup events
@@ -26,7 +46,7 @@ function useUserStatus() {
     return () => Hub.remove("auth", updateUser); // cleanup
   }, []);
 
-  return user;
+  return isLoggedIn;
 }
 
-export default useUserStatus;
+export default useIsLoggedIn;

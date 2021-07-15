@@ -8,13 +8,12 @@ import Home from "./pages/home/Home";
 import Workouts from "./pages/workouts/workouts";
 import NotFound from "./pages/notFound/NotFound";
 
-import useUserStatus from "./components/userStatus";
+import useIsLoggedIn from "./components/userStatus";
 
 I18n.putVocabularies(dict);
 
 function App() {
-  const userStatus = useUserStatus();
-  const isLoggedIn = null !== userStatus;
+  const isLoggedIn = useIsLoggedIn();
 
   return (
     <>
