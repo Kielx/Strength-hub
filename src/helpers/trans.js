@@ -27,8 +27,7 @@ const dict = {
     "Password": "Hasło",
     "Email Address *": "Adres Email *",
     "Phone Number *": "Numer telefonu *",
-    "Have an account?": "Masz już konto?",
-    "Create account": "Stwórz konto"    
+    "Have an account?": "Masz już konto?"
   },
 };
 
