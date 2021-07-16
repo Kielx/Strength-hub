@@ -15,7 +15,21 @@ const dict = {
     "Enter your username": "Podaj nazwę użytkownika",
     "Password *": "Hasło *",
     "Enter your password": "Podaj hasło",
-    "Forgot your password?": "Zapomniałeś hasła?"
+    "Forgot your password?": "Zapomniałeś hasła?",
+    "Reset password": "Zresetuj hasło",
+    "No account?": "Nie masz jeszcze konta?",
+    "Create account": "Załóż konto",
+    "Reset your password": "Zresetuj hasło",
+    "Back to Sign In": "Wróć do strony logowania",
+    "Send code": "Wyślij kod",
+    "Createa a new account": "Stwórz nowe konto",
+    "Username": "Nazwa użytkownika",
+    "Password": "Hasło",
+    "Email Address *": "Adres Email *",
+    "Phone Number *": "Numer telefonu *",
+    "Have an account?": "Masz już konto?",
+    "Create account": "Stwórz konto",
+    
   },
 };
 
