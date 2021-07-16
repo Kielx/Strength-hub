@@ -8,7 +8,7 @@ export default function Home() {
     <div className="flex h-full">
       <div className="m-auto max-w-6xl p-12">
         <div className="flex flex-col md:flex-row">
-          <div className="md:w-1/2 max-w-md flex flex-col justify-center">
+          <div className="md:w-1/2 max-w-md flex flex-col justify-center xl:mr-12">
             <div className="md:text-5xl text-2xl uppercase font-black">
               Plan your strength gains
             </div>
