@@ -19,7 +19,6 @@ function App() {
     <>
       <Switch>
         <Route exact path="/">
-          <Header isLoggedIn={isLoggedIn} />
           <Home />
         </Route>
         <Route path="/login">
