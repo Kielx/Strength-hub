@@ -9,6 +9,7 @@ const dict = {
   },
   pl: {
     "Sign In": "Zaloguj się",
+    "Sign in": "Zaloguj się",
     "Sign Up": "Załóż konto",
     "Sign in to your account": "Zaloguj się na swoje konto",
     "Username *": "Nazwa użytkownika *",
@@ -21,13 +22,14 @@ const dict = {
     "Create account": "Załóż konto",
     "Reset your password": "Zresetuj hasło",
     "Back to Sign In": "Wróć do strony logowania",
-    "Send code": "Wyślij kod",
-    "Createa a new account": "Stwórz nowe konto",
+    "Send Code": "Wyślij kod",
+    "Create a new account": "Stwórz nowe konto",
+    "Create Account": "Stwórz konto",
     "Username": "Nazwa użytkownika",
     "Password": "Hasło",
     "Email Address *": "Adres Email *",
     "Phone Number *": "Numer telefonu *",
-    "Have an account?": "Masz już konto?"
+    "Have an account?": "Masz już konto?",
   },
 };
 
