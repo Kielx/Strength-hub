@@ -28,8 +28,7 @@ const dict = {
     "Email Address *": "Adres Email *",
     "Phone Number *": "Numer telefonu *",
     "Have an account?": "Masz już konto?",
-    "Create account": "Stwórz konto",
-    
+    "Create account": "Stwórz konto"    
   },
 };
 
