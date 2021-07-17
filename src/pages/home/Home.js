@@ -10,19 +10,19 @@ export default function Home() {
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/2 max-w-md flex flex-col justify-center xl:mr-12">
             <div className="md:text-5xl text-2xl uppercase font-black">
-              Plan your strength gains
+              Strength Hub
             </div>
             <div className="text-xl mt-4">
-              Focus on training. We'll do the rest. Made by athletes for
-              athletes.
+              Plan your strength gains. Focus on training. We'll do the rest.
             </div>
             <div className="my-5 h-16">
-              <div
-                className="shadow-md font-medium py-2 px-4 text-yellow-100
+              <Link
+                to="/login"
+                className="shadow-md font-medium py-3 px-6 text-yellow-100
            cursor-pointer bg-yellow-600 hover:bg-yellow-500 rounded text-lg text-center w-48"
               >
-                <Link to="/login">Join us now</Link>
-              </div>
+                Join us now
+              </Link>
             </div>
           </div>
           <div className="flex md:justify-end w-full md:w-1/2 -mt-5">
