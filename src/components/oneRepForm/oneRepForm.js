@@ -95,13 +95,16 @@ const OneRepForm = () => {
     const inputList = [];
     for (const lift in oneRepMax) {
       inputList.push(
-        <label key={lift}>
-          {lift}
+        <label key={lift} className="flex flex-wrap w-full">
+          <span className="w-full text-center font-bold text-2xl pt-3">
+            {lift}
+          </span>
           <input
             onChange={handleChange}
             type="number"
             name={lift}
             value={oneRepMax[lift]}
+            className="w-1/6 m-auto text-center font-extrabold text-xl bg-yellow-50 shadow-sm"
           ></input>
         </label>
       );
@@ -149,7 +152,7 @@ const OneRepForm = () => {
     let finalLifts = [];
     for (const [key1, val1] of Object.entries(lifts)) {
       finalLifts.push(
-        <div className="card max-w-md bg-yellow-100 border-2 border-yellow-500 rounded-lg shadow-md">
+        <div className="card max-w-md bg-yellow-100 border-2 border-yellow-500 rounded-lg shadow-sm">
           <div className="card-header py-3 text-lg font-extrabold text-center bg-yellow-400 uppercase">
             <h3>{key1}</h3>
           </div>
@@ -175,13 +178,13 @@ const OneRepForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex flex-wrap">
         {createInputsList(oneRepMax)}
 
         <input type="submit" id="submitInput" className="hidden" />
         <label
           htmlFor="submitInput"
-          className="mx-4 shadow-md font-medium py-3 px-6 text-yellow-100
+          className="m-auto mt-6 shadow-md font-medium py-3 px-6 text-yellow-100
            cursor-pointer bg-yellow-500 hover:bg-yellow-400 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
         >
           Submit
