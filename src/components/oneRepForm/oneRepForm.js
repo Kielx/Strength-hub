@@ -118,16 +118,23 @@ const OneRepForm = () => {
         lifts[`${key1}`] = lifts[`${key1}`] || [];
         lifts[`${key1}`].push(
           <>
-            <h3>{key2}</h3>
+            <h3 className="text-lg font-bold uppercase text-center w-full">
+              {key2}
+            </h3>
+            <div className="flex px-3 w-full flex-wrap justify-between font-semibold">
+              <span>Weight [kg]</span> <span>REPS:</span>
+              <span>Done</span>
+            </div>
             {val2.increments.map((item, index) => {
               return (
                 <div
                   key={`${index} ${item}`}
-                  style={{ display: "inline-flex" }}
+                  className="flex px-3 w-full flex-wrap justify-between"
                 >
-                  <li>
-                    {item.toString(10).slice(0, 6)}, REPS: {val2.reps[index]}
-                  </li>
+                  <span className="w-16">
+                    {item.toString(10).slice(0, 5) + " kg"}
+                  </span>
+                  <span>{val2.reps[index]}</span>
                   <input
                     type="checkbox"
                     defaultChecked={val2.done[index]}
@@ -142,8 +149,8 @@ const OneRepForm = () => {
     let finalLifts = [];
     for (const [key1, val1] of Object.entries(lifts)) {
       finalLifts.push(
-        <div className="card">
-          <div className="card-header">
+        <div className="card max-w-md bg-yellow-100 border-2 border-yellow-500 rounded-lg shadow-md">
+          <div className="card-header py-3 text-lg font-extrabold text-center bg-yellow-400 uppercase">
             <h3>{key1}</h3>
           </div>
           <div className="card-block">
@@ -152,12 +159,7 @@ const OneRepForm = () => {
                 return (
                   <div
                     key={`${item} ${index}`}
-                    className="exerciseGroup"
-                    style={{
-                      display: "inline-flex",
-                      flexDirection: "column",
-                      width: "20%",
-                    }}
+                    className="exerciseGroup flex flex-wrap py-4"
                   >
                     {item}
                   </div>
@@ -173,7 +175,6 @@ const OneRepForm = () => {
 
   return (
     <>
-      <button onClick={() => getOneRepMax(Auth)}>Get One Rep Max</button>
       <form onSubmit={handleSubmit}>
         {createInputsList(oneRepMax)}
 
@@ -186,7 +187,9 @@ const OneRepForm = () => {
           Submit
         </label>
       </form>
-      {mappedLifts}
+      <div className="cardsContainer w-screen flex flex-wrap gap-10 justify-center p-10">
+        {mappedLifts}
+      </div>
     </>
   );
 };
