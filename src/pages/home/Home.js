@@ -15,11 +15,11 @@ export default function Home() {
             <div className="text-xl mt-4">
               Plan your strength gains. Focus on training. We'll do the rest.
             </div>
-            <div className="my-5 h-16">
+            <div className="my-5 h-16 ">
               <Link
                 to="/login"
                 className="shadow-md font-medium py-3 px-6 text-yellow-100
-           cursor-pointer bg-yellow-600 hover:bg-yellow-500 rounded text-lg text-center w-48"
+           cursor-pointer bg-yellow-500 hover:bg-yellow-400 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
               >
                 Join us now
               </Link>

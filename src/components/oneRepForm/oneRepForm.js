@@ -176,7 +176,15 @@ const OneRepForm = () => {
       <button onClick={() => getOneRepMax(Auth)}>Get One Rep Max</button>
       <form onSubmit={handleSubmit}>
         {createInputsList(oneRepMax)}
-        <input type="submit" value="Send" />
+
+        <input type="submit" id="submitInput" className="hidden" />
+        <label
+          htmlFor="submitInput"
+          className="mx-4 shadow-md font-medium py-3 px-6 text-yellow-100
+           cursor-pointer bg-yellow-500 hover:bg-yellow-400 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
+        >
+          Submit
+        </label>
       </form>
       {mappedLifts}
     </>
