@@ -9,17 +9,17 @@ export default function Home() {
       <div className="m-auto max-w-6xl p-12">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/2 max-w-md flex flex-col justify-center xl:mr-12">
-            <div className="md:text-5xl text-2xl uppercase font-black">
+            <div className="md:text-5xl text-2xl uppercase font-black text-gray-300">
               Strength Hub
             </div>
-            <div className="text-xl mt-4">
+            <div className="text-xl font-semibold text-gray-400 mt-4">
               Plan your strength gains. Focus on training. We'll do the rest.
             </div>
-            <div className="my-5 h-16">
+            <div className="my-5 h-16 ">
               <Link
                 to="/login"
-                className="shadow-md font-medium py-3 px-6 text-yellow-100
-           cursor-pointer bg-yellow-600 hover:bg-yellow-500 rounded text-lg text-center w-48"
+                className="shadow-md font-medium py-3 px-6 text-white
+           cursor-pointer bg-yellow-600 hover:bg-yellow-500 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
               >
                 Join us now
               </Link>
@@ -28,8 +28,8 @@ export default function Home() {
           <div className="flex md:justify-end w-full md:w-1/2 -mt-5">
             <div className="bg-dots">
               <div className="shadow-2xl max-w-md z-10 rounded-full mt-6 ml-4">
-                <img alt="card img" className="rounded-t" src={main} />
-                <div className="text-lg p-10 bg-white">
+                <img alt="card img" className="rounded-t-xl" src={main} />
+                <div className="text-lg font-semibold p-10 bg-gray-900 text-gray-400 rounded-b-xl">
                   <img
                     alt="quote"
                     className="float-left mr-1"

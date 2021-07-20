@@ -3,32 +3,24 @@ import { AmplifySignOut } from "@aws-amplify/ui-react";
 
 const header = ({ isLoggedIn }) => {
   return (
-    <header
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "1vw",
-      }}
-    >
-      <h1>Strength-Hub</h1>
-      {isLoggedIn ? (
-        <>
-          <Link to="/">
-            <button>Home</button>
+    <header className="flex items-center gap-7 text-gray-400 font-bold px-20 py-6 justify-between">
+      <h1 className="font-extrabold text-4xl text-gray-300">Strength-Hub</h1>
+      <div className="flex align-middle gap-7 items-center">
+        {isLoggedIn ? (
+          <>
+            <Link to="/">Home</Link>
+            <Link to="/workouts">Workouts</Link>
+          </>
+        ) : null}
+        {isLoggedIn ? (
+          <AmplifySignOut onClick={() => sessionStorage.clear()} />
+        ) : (
+          <Link to="/login">
+            {" "}
+            <button>Login</button>
           </Link>
-          <Link to="/workouts">
-            <button>Workouts</button>
-          </Link>
-        </>
-      ) : null}
-      {isLoggedIn ? (
-        <AmplifySignOut onClick={() => sessionStorage.clear()} />
-      ) : (
-        <Link to="/login">
-          {" "}
-          <button>Login</button>
-        </Link>
-      )}
+        )}
+      </div>
     </header>
   );
 };

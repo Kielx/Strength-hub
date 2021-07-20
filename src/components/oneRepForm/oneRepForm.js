@@ -95,13 +95,16 @@ const OneRepForm = () => {
     const inputList = [];
     for (const lift in oneRepMax) {
       inputList.push(
-        <label key={lift}>
-          {lift}
+        <label key={lift} className="flex flex-wrap w-full">
+          <span className="w-full text-center font-bold text-gray-400 text-2xl pt-3">
+            {lift}
+          </span>
           <input
             onChange={handleChange}
             type="number"
             name={lift}
             value={oneRepMax[lift]}
+            className="w-1/6 m-auto text-center font-extrabold text-xl bg-gray-900 text-yellow-500 shadow-sm"
           ></input>
         </label>
       );
@@ -118,16 +121,23 @@ const OneRepForm = () => {
         lifts[`${key1}`] = lifts[`${key1}`] || [];
         lifts[`${key1}`].push(
           <>
-            <h3>{key2}</h3>
+            <h3 className="text-lg font-extrabold uppercase text-center w-full text-yellow-500">
+              {key2}
+            </h3>
+            <div className="flex px-3 w-full flex-wrap justify-between font-bold text-gray-500 text-xl">
+              <span className="w-24">Weight</span> <span>REPS:</span>
+              <span>Done</span>
+            </div>
             {val2.increments.map((item, index) => {
               return (
                 <div
                   key={`${index} ${item}`}
-                  style={{ display: "inline-flex" }}
+                  className="flex px-3 w-full flex-wrap justify-between text-gray-400 font-semibold text-xl"
                 >
-                  <li>
-                    {item.toString(10).slice(0, 6)}, REPS: {val2.reps[index]}
-                  </li>
+                  <span className="sm:w-20">
+                    {item.toString(10).slice(0, 5) + " kg"}
+                  </span>
+                  <span className="">{val2.reps[index]}</span>
                   <input
                     type="checkbox"
                     defaultChecked={val2.done[index]}
@@ -142,8 +152,8 @@ const OneRepForm = () => {
     let finalLifts = [];
     for (const [key1, val1] of Object.entries(lifts)) {
       finalLifts.push(
-        <div className="card">
-          <div className="card-header">
+        <div className="card max-w-md bg-gray-900 rounded-3xl  shadow-sm">
+          <div className="card-header py-3 text-2xl font-extrabold text-center bg-yellow-600 uppercase rounded-t-3xl">
             <h3>{key1}</h3>
           </div>
           <div className="card-block">
@@ -152,12 +162,7 @@ const OneRepForm = () => {
                 return (
                   <div
                     key={`${item} ${index}`}
-                    className="exerciseGroup"
-                    style={{
-                      display: "inline-flex",
-                      flexDirection: "column",
-                      width: "20%",
-                    }}
+                    className="exerciseGroup flex flex-wrap py-4"
                   >
                     {item}
                   </div>
@@ -173,12 +178,21 @@ const OneRepForm = () => {
 
   return (
     <>
-      <button onClick={() => getOneRepMax(Auth)}>Get One Rep Max</button>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex flex-wrap">
         {createInputsList(oneRepMax)}
-        <input type="submit" value="Send" />
+
+        <input type="submit" id="submitInput" className="hidden" />
+        <label
+          htmlFor="submitInput"
+          className="m-auto mt-6 shadow-md font-medium py-3 px-6 text-yellow-100
+           cursor-pointer bg-yellow-600 hover:bg-yellow-500 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
+        >
+          Submit
+        </label>
       </form>
-      {mappedLifts}
+      <div className="cardsContainer w-screen flex flex-wrap gap-10 justify-center p-10">
+        {mappedLifts}
+      </div>
     </>
   );
 };
