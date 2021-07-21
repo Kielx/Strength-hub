@@ -51,7 +51,8 @@ function calculateIncrementsForWeek(weekNumber, oneRepMax) {
   //For each four weeks, we increase the weight by 2.5
   var quotient = Math.floor((weekNumber - 1) / 4);
   calculatedWeights.increments = calculatedWeights.increments.map((weight) => {
-    return weight !== 0 ? (weight += 2.5 * quotient) : 0;
+    weight = weight !== 0 ? (weight += 2.5 * quotient) : 0;
+    return Math.round(weight / 2.5) * 2.5;
   });
   return calculatedWeights;
 }

@@ -20,14 +20,3 @@
   --amplify-primary-contrast: white;
   --amplify-secondary-color: rgb(209, 213, 219);
 }
-
-amplify-form-section
-  > form
-  > amplify-section
-  > section
-  > div:nth-child(1)
-  > slot-fb
-  > div
-  > h3 {
-  color: red !important;
-}
