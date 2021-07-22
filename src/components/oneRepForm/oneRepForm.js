@@ -6,11 +6,35 @@ const OneRepForm = () => {
   const [mappedLifts, setMappedLifts] = useState("");
   const [preMapped, setPreMapped] = useState("");
 
+  //Sort returned storage object by its keys
+  //https://stackoverflow.com/questions/17684921/sort-json-object-in-javascript
+  function isObject(v) {
+    return "[object Object]" === Object.prototype.toString.call(v);
+  }
+
+  JSON.sort = function (o) {
+    if (Array.isArray(o)) {
+      return o.sort().map(JSON.sort);
+    } else if (isObject(o)) {
+      return Object.keys(o)
+        .sort()
+        .reduce(function (a, k) {
+          a[k] = JSON.sort(o[k]);
+
+          return a;
+        }, {});
+    }
+
+    return o;
+  };
+
   useEffect(() => {
     const mapLifts = async () => {
       let maxes;
       sessionStorage.getItem("preMapped")
-        ? setPreMapped(JSON.parse(sessionStorage.getItem("preMapped")))
+        ? setPreMapped(
+            JSON.sort(JSON.parse(sessionStorage.getItem("preMapped")))
+          )
         : (maxes = await getOneRepMax(Auth));
       return maxes ? setPreMapped(maxes.fiveThreeOne) : setMappedLifts("");
     };
@@ -27,7 +51,7 @@ const OneRepForm = () => {
           });
     };
     sessionStorage.getItem("oneRepMax")
-      ? setOneRepMax(JSON.parse(sessionStorage.getItem("oneRepMax")))
+      ? setOneRepMax(JSON.sort(JSON.parse(sessionStorage.getItem("oneRepMax"))))
       : oneReps();
 
     mapLifts();
@@ -104,7 +128,7 @@ const OneRepForm = () => {
             type="number"
             name={lift}
             value={oneRepMax[lift]}
-            className="w-1/6 m-auto text-center font-extrabold text-xl bg-gray-900 text-yellow-500 shadow-sm"
+            className="w-1/6 m-auto text-center font-extrabold text-xl bg-gray-900 text-blue-500 shadow-sm"
           ></input>
         </label>
       );
@@ -121,7 +145,7 @@ const OneRepForm = () => {
         lifts[`${key1}`] = lifts[`${key1}`] || [];
         lifts[`${key1}`].push(
           <>
-            <h3 className="text-lg font-extrabold uppercase text-center w-full text-yellow-500">
+            <h3 className="text-lg font-extrabold uppercase text-center w-full text-blue-500">
               {key2}
             </h3>
             <div className="flex px-3 w-full flex-wrap justify-between font-bold text-gray-500 text-xl">
@@ -152,8 +176,8 @@ const OneRepForm = () => {
     let finalLifts = [];
     for (const [key1, val1] of Object.entries(lifts)) {
       finalLifts.push(
-        <div className="card max-w-md bg-gray-900 rounded-3xl  shadow-sm">
-          <div className="card-header py-3 text-2xl font-extrabold text-center bg-yellow-600 uppercase rounded-t-3xl">
+        <div className="card max-w-md bg-gray-900 rounded  shadow-sm">
+          <div className="card-header py-3 text-2xl font-extrabold text-center bg-blue-600 uppercase rounded-t">
             <h3>{key1}</h3>
           </div>
           <div className="card-block">
@@ -184,8 +208,8 @@ const OneRepForm = () => {
         <input type="submit" id="submitInput" className="hidden" />
         <label
           htmlFor="submitInput"
-          className="m-auto mt-6 shadow-md font-medium py-3 px-6 text-yellow-100
-           cursor-pointer bg-yellow-600 hover:bg-yellow-500 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
+          className="m-auto mt-6 shadow-md font-medium py-3 px-6 text-blue-100
+           cursor-pointer bg-blue-600 hover:bg-blue-500 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
         >
           Submit
         </label>

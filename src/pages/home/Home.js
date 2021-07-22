@@ -19,7 +19,7 @@ export default function Home() {
               <Link
                 to="/login"
                 className="shadow-md font-medium py-3 px-6 text-white
-           cursor-pointer bg-yellow-600 hover:bg-yellow-500 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
+           cursor-pointer bg-blue-600 hover:bg-blue-500 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
               >
                 Join us now
               </Link>
@@ -28,8 +28,8 @@ export default function Home() {
           <div className="flex md:justify-end w-full md:w-1/2 -mt-5">
             <div className="bg-dots">
               <div className="shadow-2xl max-w-md z-10 rounded-full mt-6 ml-4">
-                <img alt="card img" className="rounded-t-xl" src={main} />
-                <div className="text-lg font-semibold p-10 bg-gray-900 text-gray-400 rounded-b-xl">
+                <img alt="card img" className="rounded-t" src={main} />
+                <div className="text-lg font-semibold p-10 bg-gray-900 text-gray-400 rounded-b">
                   <img
                     alt="quote"
                     className="float-left mr-1"
