@@ -54,7 +54,7 @@ const OneRepForm = () => {
           });
     };
     sessionStorage.getItem("oneRepMax")
-      ? setOneRepMax(JSON.sort(JSON.parse(sessionStorage.getItem("oneRepMax"))))
+      ? setOneRepMax(JSON.parse(sessionStorage.getItem("oneRepMax")))
       : oneReps();
 
     mapLifts();
@@ -93,7 +93,6 @@ const OneRepForm = () => {
         },
       }
     );
-    console.log(updatedOneRepMax);
     setPreMapped(updatedOneRepMax.updated.fiveThreeOne);
     setMappedLifts(mapLiftsAgain(updatedOneRepMax.updated.fiveThreeOne));
 
@@ -141,7 +140,7 @@ const OneRepForm = () => {
 
   const mapLiftsAgain = (mappedLifts) => {
     const lifts = {};
-
+    mappedLifts = JSON.sort(mappedLifts);
     for (let [key1, val1] of Object.entries(mappedLifts)) {
       //iterate over outer object - key is week, value is lift object containing key: lift and value: increment
       for (const [key2, val2] of Object.entries(val1)) {
