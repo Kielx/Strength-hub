@@ -1,8 +1,10 @@
 import { React } from "react";
 import OneRepForm from "../../components/oneRepForm/oneRepForm";
 
-const Workouts = () => {
-  return <OneRepForm></OneRepForm>;
+const Workouts = ({ userData, setUserData }) => {
+  return (
+    <OneRepForm userData={userData} setUserData={setUserData}></OneRepForm>
+  );
 
   /*   const [oneRepMax, setOneRepMax] = useState(
     JSON.parse(localStorage.getItem("oneRepMax")) || {

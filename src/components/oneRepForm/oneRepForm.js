@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { Auth, API } from "aws-amplify";
 
-const OneRepForm = () => {
+const OneRepForm = ({ userData, setUserData }) => {
   const [oneRepMax, setOneRepMax] = useState("");
   const [mappedLifts, setMappedLifts] = useState("");
   const [preMapped, setPreMapped] = useState("");
@@ -95,6 +95,7 @@ const OneRepForm = () => {
     );
     setPreMapped(updatedOneRepMax.updated.fiveThreeOne);
     setMappedLifts(mapLiftsAgain(updatedOneRepMax.updated.fiveThreeOne));
+    setUserData(updatedOneRepMax.updated);
 
     return updatedOneRepMax;
   };
