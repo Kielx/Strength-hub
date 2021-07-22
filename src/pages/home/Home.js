@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import main from "../../assets/images/main.jpg";
+import main from "../../assets/images/main.webp";
 
 export default function Home() {
   return (
