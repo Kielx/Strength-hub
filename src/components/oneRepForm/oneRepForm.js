@@ -5,6 +5,7 @@ const OneRepForm = () => {
   const [oneRepMax, setOneRepMax] = useState("");
   const [mappedLifts, setMappedLifts] = useState("");
   const [preMapped, setPreMapped] = useState("");
+  const [loading, setLoading] = useState(true);
 
   //Sort returned storage object by its keys
   //https://stackoverflow.com/questions/17684921/sort-json-object-in-javascript
@@ -30,12 +31,14 @@ const OneRepForm = () => {
 
   useEffect(() => {
     const mapLifts = async () => {
+      setLoading(true);
       let maxes;
       sessionStorage.getItem("preMapped")
         ? setPreMapped(
             JSON.sort(JSON.parse(sessionStorage.getItem("preMapped")))
           )
         : (maxes = await getOneRepMax(Auth));
+      setLoading(false);
       return maxes ? setPreMapped(maxes.fiveThreeOne) : setMappedLifts("");
     };
     const oneReps = async () => {
@@ -138,6 +141,7 @@ const OneRepForm = () => {
 
   const mapLiftsAgain = (mappedLifts) => {
     const lifts = {};
+
     for (let [key1, val1] of Object.entries(mappedLifts)) {
       //iterate over outer object - key is week, value is lift object containing key: lift and value: increment
       for (const [key2, val2] of Object.entries(val1)) {
@@ -199,6 +203,15 @@ const OneRepForm = () => {
     }
     return finalLifts;
   };
+
+  if (loading)
+    return (
+      <div className="flex w-full h-screen items-center ">
+        <span className="text-3xl text-gray-300 font-extrabold m-auto">
+          Loading...
+        </span>
+      </div>
+    );
 
   return (
     <>
