@@ -15,15 +15,17 @@ I18n.putVocabularies(dict);
 function App() {
   const isLoggedIn = useIsLoggedIn();
   const [userData, setUserData] = useState({});
+  const [saved, setSaved] = useState(false);
 
   const saveData = async function () {
+    let res = false;
     if (
       //Checks if sessionstorage has userData AND if userData is not empty (because API returns empty object if no data is found)
       sessionStorage.getItem("userData") &&
       Object.keys(JSON.parse(sessionStorage.getItem("userData"))).length
     ) {
       const user = await Auth.currentAuthenticatedUser();
-      await API.post("strengthworkouts", "/api/strengthworkouts/update", {
+      res = await API.post("strengthworkouts", "/api/strengthworkouts/update", {
         body: {
           id: `${user.attributes.sub}`,
           name: `${Auth.user.username}`,
@@ -31,6 +33,12 @@ function App() {
           fiveThreeOne: userData.fiveThreeOne,
         },
       });
+    }
+    if (res) {
+      setSaved(true);
+      setTimeout(() => {
+        setSaved(false);
+      }, 5000);
     }
   };
 
@@ -45,7 +53,11 @@ function App() {
         <Route exact path="/create-workout">
           {isLoggedIn ? (
             <>
-              <Header isLoggedIn={isLoggedIn} saveData={saveData} />
+              <Header
+                isLoggedIn={isLoggedIn}
+                saveData={saveData}
+                saved={saved}
+              />
               <CreateWorkout
                 userData={userData}
                 setUserData={setUserData}
@@ -58,7 +70,11 @@ function App() {
         <Route exact path="/my-workout">
           {isLoggedIn ? (
             <>
-              <Header isLoggedIn={isLoggedIn} saveData={saveData} />
+              <Header
+                isLoggedIn={isLoggedIn}
+                saveData={saveData}
+                saved={saved}
+              />
               <MyWorkout
                 userData={userData}
                 setUserData={setUserData}

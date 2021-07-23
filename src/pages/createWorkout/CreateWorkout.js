@@ -171,7 +171,7 @@ const CreateWorkout = ({ userData, setUserData }) => {
     );
   } else {
     return (
-      <form onSubmit={handleSubmit} className="flex flex-wrap w-full pt-10">
+      <form onSubmit={handleSubmit} className="flex flex-wrap w-full pt-20">
         {createInputsList(userData)}
         <input type="submit" id="submitInput" className="hidden" />
         <label htmlFor="submitInput" className="m-auto mt-5 btn-primary">
