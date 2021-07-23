@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import CustomSignOutButton from "../customSignOutButton/customSignOutButton";
 
-const header = ({ isLoggedIn }) => {
+const header = ({ isLoggedIn, saveData }) => {
   return (
     <header className="flex items-center gap-7 text-gray-400 font-bold px-20 py-6 justify-between">
       <h1 className="font-extrabold text-4xl text-gray-300 uppercase">
@@ -28,7 +28,12 @@ const header = ({ isLoggedIn }) => {
           </>
         ) : null}
         {isLoggedIn ? (
-          <CustomSignOutButton> </CustomSignOutButton>
+          <>
+            <button className="btn-primary" onClick={saveData}>
+              Save workout
+            </button>
+            <CustomSignOutButton> </CustomSignOutButton>
+          </>
         ) : (
           <Link to="/login">
             {" "}

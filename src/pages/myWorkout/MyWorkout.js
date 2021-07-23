@@ -13,9 +13,7 @@ const MyWorkout = ({ userData, setUserData }) => {
   }
 
   JSON.sort = function (o) {
-    if (Array.isArray(o)) {
-      return o.sort().map(JSON.sort);
-    } else if (isObject(o)) {
+    if (isObject(o)) {
       return Object.keys(o)
         .sort()
         .reduce(function (a, k) {
@@ -140,6 +138,12 @@ const MyWorkout = ({ userData, setUserData }) => {
                   <input
                     type="checkbox"
                     defaultChecked={val2.done[index]}
+                    onClick={(event) => {
+                      const newData = { ...userData };
+                      newData.fiveThreeOne[key1][key2].done[index] =
+                        !newData.fiveThreeOne[key1][key2].done[index];
+                      setUserData(newData);
+                    }}
                   ></input>
                 </div>
               );
@@ -181,7 +185,7 @@ const MyWorkout = ({ userData, setUserData }) => {
         {/* <span className="text-3xl text-gray-300 font-extrabold m-auto">
           Loading...
         </span> */}
-        <div class="lds-roller m-auto">
+        <div className="lds-roller m-auto">
           <div></div>
           <div></div>
           <div></div>
@@ -195,9 +199,11 @@ const MyWorkout = ({ userData, setUserData }) => {
     );
   } else {
     return (
-      <div className="cardsContainer w-full flex flex-wrap gap-10 justify-center p-10 pt-20">
-        {mapLifts(userData)}
-      </div>
+      <>
+        <div className="cardsContainer w-full flex flex-wrap gap-10 justify-center p-10 pt-20">
+          {mapLifts(userData)}
+        </div>
+      </>
     );
   }
 };

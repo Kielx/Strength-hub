@@ -175,7 +175,7 @@ const CreateWorkout = ({ userData, setUserData }) => {
         {createInputsList(userData)}
         <input type="submit" id="submitInput" className="hidden" />
         <label htmlFor="submitInput" className="m-auto mt-5 btn-primary">
-          Save workout
+          Create workout
         </label>
       </form>
     );

@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { AmplifyAuthenticator, AmplifySignIn } from "@aws-amplify/ui-react";
-import { I18n } from "aws-amplify";
+import { I18n, Auth, API } from "aws-amplify";
 import { dict } from "./helpers/trans";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./pages/home/Home";
@@ -16,6 +16,24 @@ function App() {
   const isLoggedIn = useIsLoggedIn();
   const [userData, setUserData] = useState({});
 
+  const saveData = async function () {
+    if (
+      //Checks if sessionstorage has userData AND if userData is not empty (because API returns empty object if no data is found)
+      sessionStorage.getItem("userData") &&
+      Object.keys(JSON.parse(sessionStorage.getItem("userData"))).length
+    ) {
+      const user = await Auth.currentAuthenticatedUser();
+      await API.post("strengthworkouts", "/api/strengthworkouts/update", {
+        body: {
+          id: `${user.attributes.sub}`,
+          name: `${Auth.user.username}`,
+          oneRepMax: userData.oneRepMax,
+          fiveThreeOne: userData.fiveThreeOne,
+        },
+      });
+    }
+  };
+
   return (
     <>
       <Switch>
@@ -27,7 +45,7 @@ function App() {
         <Route exact path="/create-workout">
           {isLoggedIn ? (
             <>
-              <Header isLoggedIn={isLoggedIn} />
+              <Header isLoggedIn={isLoggedIn} saveData={saveData} />
               <CreateWorkout
                 userData={userData}
                 setUserData={setUserData}
@@ -40,7 +58,7 @@ function App() {
         <Route exact path="/my-workout">
           {isLoggedIn ? (
             <>
-              <Header isLoggedIn={isLoggedIn} />
+              <Header isLoggedIn={isLoggedIn} saveData={saveData} />
               <MyWorkout
                 userData={userData}
                 setUserData={setUserData}

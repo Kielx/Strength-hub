@@ -125,6 +125,46 @@ app.post("/api/strengthworkouts", function (req, res) {
   });
 });
 
+app.post("/api/strengthworkouts/update", function (req, res) {
+  var params = {
+    TableName: process.env.STORAGE_WORKOUTSDB_NAME,
+    Item: {
+      id: req.body.id,
+      name: req.body.name,
+      oneRepMax: req.body.oneRepMax,
+      fiveThreeOne: req.body.fiveThreeOne,
+    },
+  };
+
+  //validate the input
+  if (
+    !params.Item.id ||
+    !params.Item.name ||
+    !params.Item.oneRepMax ||
+    !params.Item.fiveThreeOne
+  ) {
+    res.json({ err: "Invalid input" });
+    return;
+  }
+  docClient.put(params, function (err, data) {
+    if (err) {
+      console.log(err, err.stack);
+      res.json({
+        msg: "post call failed!",
+        url: req.url,
+        body: req.body,
+        error: err,
+      });
+    } else {
+      console.log("post call succeed!", data);
+      res.json({
+        success: "post call succeed!",
+        updated: params.Item,
+      });
+    }
+  });
+});
+
 app.post("/api/strengthworkouts/*", function (req, res) {
   // Add your code here
   res.json({ success: "post call succeed!", url: req.url, body: req.body });
