@@ -3,14 +3,12 @@ import { AmplifyAuthenticator, AmplifySignIn } from "@aws-amplify/ui-react";
 import { I18n } from "aws-amplify";
 import { dict } from "./helpers/trans";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Header from "./components/header/header";
 import Home from "./pages/home/Home";
-import Workouts from "./pages/workouts/workouts";
-import NotFound from "./pages/notFound/NotFound";
-
-import useIsLoggedIn from "./components/userStatus";
 import CreateWorkout from "./pages/createWorkout/CreateWorkout";
 import MyWorkout from "./pages/myWorkout/MyWorkout";
+import NotFound from "./pages/notFound/NotFound";
+import Header from "./components/header/header";
+import useIsLoggedIn from "./components/userStatus";
 
 I18n.putVocabularies(dict);
 
@@ -54,23 +52,14 @@ function App() {
         </Route>
         <Route path="/login">
           {isLoggedIn ? (
-            <Redirect to="/workouts" />
+            <Redirect to="/my-workout" />
           ) : (
             <AmplifyAuthenticator>
               <AmplifySignIn></AmplifySignIn>
             </AmplifyAuthenticator>
           )}
         </Route>
-        <Route exact path="/workouts">
-          {isLoggedIn ? (
-            <>
-              <Header isLoggedIn={isLoggedIn} />
-              <Workouts userData={userData} setUserData={setUserData} />
-            </>
-          ) : (
-            <Redirect to="/" />
-          )}
-        </Route>
+
         <Route path="*">
           <NotFound />
         </Route>

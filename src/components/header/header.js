@@ -9,7 +9,6 @@ const header = ({ isLoggedIn }) => {
         {isLoggedIn ? (
           <>
             <Link to="/">Home</Link>
-            <Link to="/workouts">Workouts</Link>
             <Link to="/create-workout">Create Workout</Link>
             <Link to="/my-workout">My Workout</Link>
           </>

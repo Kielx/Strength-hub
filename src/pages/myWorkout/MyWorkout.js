@@ -69,7 +69,7 @@ const MyWorkout = ({ userData, setUserData }) => {
       else {
         let data = await getUserData(Auth);
         if (data) {
-          setUserData(data);
+          setUserData(JSON.sort(data));
           setLoading(false);
         }
         //In case of null or empty object being returned from DB
