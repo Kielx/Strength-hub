@@ -10,6 +10,7 @@ import NotFound from "./pages/notFound/NotFound";
 
 import useIsLoggedIn from "./components/userStatus";
 import CreateWorkout from "./pages/createWorkout/CreateWorkout";
+import MyWorkout from "./pages/myWorkout/MyWorkout";
 
 I18n.putVocabularies(dict);
 
@@ -26,12 +27,30 @@ function App() {
           </>
         </Route>
         <Route exact path="/create-workout">
-          <>
-            <CreateWorkout
-              userData={userData}
-              setUserData={setUserData}
-            ></CreateWorkout>
-          </>
+          {isLoggedIn ? (
+            <>
+              <Header isLoggedIn={isLoggedIn} />
+              <CreateWorkout
+                userData={userData}
+                setUserData={setUserData}
+              ></CreateWorkout>
+            </>
+          ) : (
+            <Redirect to="/login" />
+          )}
+        </Route>
+        <Route exact path="/my-workout">
+          {isLoggedIn ? (
+            <>
+              <Header isLoggedIn={isLoggedIn} />
+              <MyWorkout
+                userData={userData}
+                setUserData={setUserData}
+              ></MyWorkout>
+            </>
+          ) : (
+            <Redirect to="/login" />
+          )}
         </Route>
         <Route path="/login">
           {isLoggedIn ? (

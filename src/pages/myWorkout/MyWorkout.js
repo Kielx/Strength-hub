@@ -1,7 +1,8 @@
 import { React, useEffect, useState } from "react";
 import { Auth, API } from "aws-amplify";
+import { Link } from "react-router-dom";
 
-const CreateWorkout = ({ userData, setUserData }) => {
+const MyWorkout = ({ userData, setUserData }) => {
   const [loading, setLoading] = useState(true);
 
   //Sort returned storage object by its keys
@@ -47,40 +48,6 @@ const CreateWorkout = ({ userData, setUserData }) => {
     }
   };
 
-  //On each change previous user data is assigned to new user data
-  //oneRepMax is assigned via spread operator the rest of data and lift is passed the value of target
-  const handleChange = (event) => {
-    const newData = {
-      ...userData,
-      oneRepMax: {
-        ...userData.oneRepMax,
-        [event.target.name]: event.target.value,
-      },
-    };
-    setUserData(newData);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const user = await Auth.currentAuthenticatedUser();
-    const updatedOneRepMax = await API.post(
-      "strengthworkouts",
-      "/api/strengthworkouts",
-      {
-        body: {
-          id: `${user.attributes.sub}`,
-          name: `${Auth.user.username}`,
-          oneRepMax: userData.oneRepMax,
-        },
-      }
-    );
-
-    //Api returns updated user data hence updatedOneRepMax.updated
-    setUserData(updatedOneRepMax.updated);
-    alert(`Successfully created new workout.`);
-    return updatedOneRepMax;
-  };
-
   //UseEffect for fetching data. If data is already fetched, it will not be fetched again
   //If data is not fetched, it will be fetched and then stored in userData
   //If data is already fetched, it will be stored in userData
@@ -95,7 +62,7 @@ const CreateWorkout = ({ userData, setUserData }) => {
         sessionStorage.getItem("userData") &&
         Object.keys(JSON.parse(sessionStorage.getItem("userData"))).length
       ) {
-        setUserData(JSON.parse(sessionStorage.getItem("userData")));
+        setUserData(JSON.sort(JSON.parse(sessionStorage.getItem("userData"))));
         setLoading(false);
       }
       //Otherwise it will be fetched and then stored in userData
@@ -130,25 +97,82 @@ const CreateWorkout = ({ userData, setUserData }) => {
     sessionStorage.setItem("userData", JSON.stringify(userData));
   }, [userData]);
 
-  const createInputsList = (userData) => {
-    const inputList = [];
-    for (const lift in userData.oneRepMax) {
-      inputList.push(
-        <label key={lift} className="flex flex-wrap w-full">
-          <span className="w-full text-center font-bold text-gray-400 text-2xl pt-3">
-            {lift}
-          </span>
-          <input
-            onChange={handleChange}
-            type="number"
-            name={lift}
-            value={userData.oneRepMax[lift]}
-            className="w-1/6 m-auto text-center font-extrabold text-xl bg-gray-900 text-blue-500 shadow-sm"
-          ></input>
-        </label>
+  const mapLifts = (userData) => {
+    const lifts = {};
+    if (!userData.hasOwnProperty("fiveThreeOne")) {
+      return (
+        <div className="text-center text-3xl text-gray-400 font-extrabold w-full flex flex-col justify-center items-center p-20 gap-10">
+          <span>You have no workouts!</span>
+
+          <Link
+            to="/create-workout"
+            className="shadow-md font-medium py-3 px-6 text-white cursor-pointer bg-blue-600 hover:bg-blue-500 rounded text-lg text-center w-48 transition-colors active:relative"
+          >
+            Click here to create some
+          </Link>
+        </div>
       );
     }
-    return inputList;
+    for (let [key1, val1] of Object.entries(userData.fiveThreeOne)) {
+      //iterate over outer object - key is week, value is lift object containing key: lift and value: increment
+      for (const [key2, val2] of Object.entries(val1)) {
+        //iterate over inner object - key2 is name of lift, value2 is object containing array of increments, reps, and done
+        lifts[`${key1}`] = lifts[`${key1}`] || [];
+        lifts[`${key1}`].push(
+          <>
+            <h3 className="text-lg font-extrabold uppercase text-center w-full text-blue-500">
+              {key2}
+            </h3>
+            <div className="flex px-3 w-full flex-wrap justify-between font-bold text-gray-500 text-xl">
+              <span className="w-24">Weight</span> <span>REPS:</span>
+              <span>Done</span>
+            </div>
+            {val2.increments.map((item, index) => {
+              return (
+                <div
+                  key={`${index} ${item}`}
+                  className="flex px-3 w-full flex-wrap justify-between text-gray-400 font-semibold text-xl"
+                >
+                  <span className="sm:w-20">
+                    {item.toString(10).slice(0, 5) + " kg"}
+                  </span>
+                  <span className="">{val2.reps[index]}</span>
+                  <input
+                    type="checkbox"
+                    defaultChecked={val2.done[index]}
+                  ></input>
+                </div>
+              );
+            })}
+          </>
+        );
+      }
+    }
+    let finalLifts = [];
+    for (const [key1, val1] of Object.entries(lifts)) {
+      finalLifts.push(
+        <div className="card max-w-md bg-gray-900 rounded  shadow-sm">
+          <div className="card-header py-3 text-2xl font-extrabold text-center bg-blue-600 uppercase rounded-t">
+            <h3>{key1}</h3>
+          </div>
+          <div className="card-block">
+            <ul className="list-group">
+              {val1.map((item, index) => {
+                return (
+                  <div
+                    key={`${item} ${index}`}
+                    className="exerciseGroup flex flex-wrap py-4"
+                  >
+                    {item}
+                  </div>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      );
+    }
+    return finalLifts;
   };
 
   if (loading) {
@@ -171,19 +195,11 @@ const CreateWorkout = ({ userData, setUserData }) => {
     );
   } else {
     return (
-      <form onSubmit={handleSubmit} className="flex flex-wrap w-full pt-10">
-        {createInputsList(userData)}
-        <input type="submit" id="submitInput" className="hidden" />
-        <label
-          htmlFor="submitInput"
-          className="m-auto mt-6 shadow-md font-medium py-3 px-6 text-blue-100
-         cursor-pointer bg-blue-600 hover:bg-blue-500 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
-        >
-          Submit
-        </label>
-      </form>
+      <div className="cardsContainer w-full flex flex-wrap gap-10 justify-center p-10 pt-20">
+        {mapLifts(userData)}
+      </div>
     );
   }
 };
 
-export default CreateWorkout;
+export default MyWorkout;
