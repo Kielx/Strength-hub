@@ -174,12 +174,8 @@ const CreateWorkout = ({ userData, setUserData }) => {
       <form onSubmit={handleSubmit} className="flex flex-wrap w-full pt-10">
         {createInputsList(userData)}
         <input type="submit" id="submitInput" className="hidden" />
-        <label
-          htmlFor="submitInput"
-          className="m-auto mt-6 shadow-md font-medium py-3 px-6 text-blue-100
-         cursor-pointer bg-blue-600 hover:bg-blue-500 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
-        >
-          Submit
+        <label htmlFor="submitInput" className="m-auto mt-5 btn-primary">
+          Save workout
         </label>
       </form>
     );
