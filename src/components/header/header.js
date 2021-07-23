@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AmplifySignOut } from "@aws-amplify/ui-react";
+import CustomSignOutButton from "../customSignOutButton/customSignOutButton";
 
 const header = ({ isLoggedIn }) => {
   return (
@@ -15,7 +15,7 @@ const header = ({ isLoggedIn }) => {
           </>
         ) : null}
         {isLoggedIn ? (
-          <AmplifySignOut onClick={() => sessionStorage.clear()} />
+          <CustomSignOutButton> </CustomSignOutButton>
         ) : (
           <Link to="/login">
             {" "}
