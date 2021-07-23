@@ -19,7 +19,10 @@ const handleSignOutButtonClick = async () => {
 
 const CustomSignOutButton = () => {
   return (
-    <button onClick={handleSignOutButtonClick} className="btn-primary">
+    <button
+      onClick={handleSignOutButtonClick}
+      className="btn-primary bg-transparent border-2 border-blue-500"
+    >
       Sign out
     </button>
   );
