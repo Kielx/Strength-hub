@@ -113,17 +113,29 @@ const MyWorkout = ({ userData, setUserData }) => {
     }
     for (let [key1, val1] of Object.entries(userData.fiveThreeOne)) {
       //iterate over outer object - key is week, value is lift object containing key: lift and value: increment
+
       for (const [key2, val2] of Object.entries(val1)) {
         //iterate over inner object - key2 is name of lift, value2 is object containing array of increments, reps, and done
         lifts[`${key1}`] = lifts[`${key1}`] || [];
         lifts[`${key1}`].push(
           <>
             <h3
+              //Headings of each week of workout
+              //Nested ternaries check if all checkboxes are true
+              //If yes color is green
+              //If not checks if current week is true
+              //If yes color is blue, otherwise its gray
               className={`text-lg font-extrabold uppercase text-center w-1/2 m-auto transition-colors  ${
                 userData.fiveThreeOne[key1][key2].done.every((v) => v === true)
-                  ? "text-green-500  "
-                  : "text-blue-500"
-              } `}
+                  ? "text-green-600  "
+                  : //Check if current week is equal to week in question
+                  key1.replace(/^\D+/g, "") ==
+                    userData.oneRepMax["Current Week"]
+                  ? "text-blue-500"
+                  : "text-gray-500"
+              } 
+                
+              `}
             >
               {key2}
             </h3>
@@ -146,7 +158,7 @@ const MyWorkout = ({ userData, setUserData }) => {
                       userData.fiveThreeOne[key1][key2].done.every(
                         (v) => v === true
                       )
-                        ? "text-green-500  "
+                        ? "text-green-600  "
                         : "text-blue-500"
                     } `}
                     type="checkbox"
@@ -168,13 +180,25 @@ const MyWorkout = ({ userData, setUserData }) => {
     let finalLifts = [];
     for (const [key1, val1] of Object.entries(lifts)) {
       finalLifts.push(
-        <div className="card max-w-md bg-gray-900 rounded  shadow-sm">
-          <div className="card-header py-3 text-2xl font-extrabold text-center bg-blue-600 uppercase rounded-t flex justify-center items-center ">
+        <div
+          className="card max-w-md bg-gray-900 rounded  shadow-sm transition-colors"
+          //Onclick sets current week equal to week in question
+          onClick={(event) => {
+            const key = key1.replace(/^\D+/g, ""); // replace all leading non-digits with nothing
+            const newData = { ...userData };
+            newData.oneRepMax["Current Week"] = parseInt(key, 10);
+            setUserData(newData);
+          }}
+        >
+          <div
+            className={`card-header py-3 text-2xl font-extrabold text-center  uppercase rounded-t flex justify-center items-center cursor-pointer ${
+              //Check if current week is equal to week in question
+              key1.replace(/^\D+/g, "") == userData.oneRepMax["Current Week"]
+                ? "bg-blue-600"
+                : "bg-gray-600"
+            }`}
+          >
             <h3>{key1}</h3>
-            <input
-              className="ml-3 w-7 h-7 bg-blue-600 border-2 border-blue-800"
-              type="checkbox"
-            ></input>
           </div>
           <div className="card-block">
             <ul className="list-group">
