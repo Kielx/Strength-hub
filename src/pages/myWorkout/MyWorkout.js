@@ -118,7 +118,13 @@ const MyWorkout = ({ userData, setUserData }) => {
         lifts[`${key1}`] = lifts[`${key1}`] || [];
         lifts[`${key1}`].push(
           <>
-            <h3 className="text-lg font-extrabold uppercase text-center w-full text-blue-500">
+            <h3
+              className={`text-lg font-extrabold uppercase text-center w-1/2 m-auto transition-colors  ${
+                userData.fiveThreeOne[key1][key2].done.every((v) => v === true)
+                  ? "text-green-500  "
+                  : "text-blue-500"
+              } `}
+            >
               {key2}
             </h3>
             <div className="flex px-3 w-full flex-wrap justify-between font-bold text-gray-500 text-xl">
@@ -129,13 +135,20 @@ const MyWorkout = ({ userData, setUserData }) => {
               return (
                 <div
                   key={`${index} ${item}`}
-                  className="flex px-3 w-full flex-wrap justify-between text-gray-400 font-semibold text-xl"
+                  className="flex px-3 w-full flex-wrap justify-between text-gray-400 font-semibold text-xl  "
                 >
                   <span className="sm:w-20">
                     {item.toString(10).slice(0, 5) + " kg"}
                   </span>
                   <span className="">{val2.reps[index]}</span>
                   <input
+                    className={`transition-colors  ${
+                      userData.fiveThreeOne[key1][key2].done.every(
+                        (v) => v === true
+                      )
+                        ? "text-green-500  "
+                        : "text-blue-500"
+                    } `}
                     type="checkbox"
                     defaultChecked={val2.done[index]}
                     onClick={(event) => {
@@ -156,8 +169,12 @@ const MyWorkout = ({ userData, setUserData }) => {
     for (const [key1, val1] of Object.entries(lifts)) {
       finalLifts.push(
         <div className="card max-w-md bg-gray-900 rounded  shadow-sm">
-          <div className="card-header py-3 text-2xl font-extrabold text-center bg-blue-600 uppercase rounded-t">
+          <div className="card-header py-3 text-2xl font-extrabold text-center bg-blue-600 uppercase rounded-t flex justify-center items-center ">
             <h3>{key1}</h3>
+            <input
+              className="ml-3 w-7 h-7 bg-blue-600 border-2 border-blue-800"
+              type="checkbox"
+            ></input>
           </div>
           <div className="card-block">
             <ul className="list-group">
