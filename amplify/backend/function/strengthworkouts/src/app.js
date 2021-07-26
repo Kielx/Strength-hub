@@ -136,6 +136,8 @@ app.post("/api/strengthworkouts/update", function (req, res) {
     },
   };
   //Add new data to existing document
+  //Addlift functions calculates increments for week(current week + 1)
+  //And adds it to the existing document
   params.Item.fiveThreeOne = {
     ...params.Item.fiveThreeOne,
     ...calculateIncrements.addLift(req.body.oneRepMax),
