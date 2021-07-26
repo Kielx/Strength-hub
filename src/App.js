@@ -35,7 +35,11 @@ function App() {
       });
     }
     if (res) {
+      console.log(res);
       setSaved(true);
+      const newFiveThreeOne = res.updated.fiveThreeOne;
+      setUserData({ ...userData, fiveThreeOne: newFiveThreeOne });
+      console.log(userData);
       setTimeout(() => {
         setSaved(false);
       }, 5000);

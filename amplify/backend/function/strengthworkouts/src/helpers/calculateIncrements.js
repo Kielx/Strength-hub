@@ -79,7 +79,29 @@ const mapLifts = function (oneRepMax, currentWeek) {
   return lifts;
 };
 
+const addLift = function (oneRepMax) {
+  const lifts = {};
+  //i is the week number increased by 1
+  const i = parseInt(oneRepMax["Current Week"], 10) + 1;
+
+  for (const [key, value] of Object.entries(oneRepMax)) {
+    //Check if objects and properties are defined, if not set to empty
+    //https://stackoverflow.com/questions/17643965/how-to-automatically-add-properties-to-an-object-that-is-undefined
+    if (key !== "Current Week") {
+      lifts[`week ${i}`] = lifts[`week ${i}`] || {};
+      lifts[`week ${i}`][key] = lifts[`week ${i}`][key] || {};
+      lifts[`week ${i}`][key] = {
+        increments: calculateIncrementsForWeek(i, value).increments,
+        reps: calculateIncrementsForWeek(i, value).reps,
+        done: calculateIncrementsForWeek(i, value).done,
+      };
+    }
+  }
+  return lifts;
+};
+
 module.exports = {
   calculateIncrementsForWeek: calculateIncrementsForWeek,
   mapLifts: mapLifts,
+  addLift: addLift,
 };

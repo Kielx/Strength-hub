@@ -135,7 +135,11 @@ app.post("/api/strengthworkouts/update", function (req, res) {
       fiveThreeOne: req.body.fiveThreeOne,
     },
   };
-
+  //Add new data to existing document
+  params.Item.fiveThreeOne = {
+    ...params.Item.fiveThreeOne,
+    ...calculateIncrements.addLift(req.body.oneRepMax),
+  };
   //validate the input
   if (
     !params.Item.id ||
