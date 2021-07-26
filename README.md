@@ -23,18 +23,21 @@ The second point is the hard part. People either give up at that point or if the
 <img alt="Development screnshot" src="https://github.com/Kielx/Strength-Hub/blob/master/screenshots/Strength-hub.png?raw=true" width="400" />
 </div>
 
-
-## Strength-Hub as an MVP will feature:
+<del>
+Strength-Hub as an MVP will feature:
 
 - [x]  Input where the user provides their 1 Rep Max for Squat, Deadlift, Bench Press, and Overhead Press
 - [x]  Based on 1 Rep max inputs app should calculate your proposed weight progress for next weeks
-- [ ]  Checkboxes next to each set to confirm that user succeeded at lifting given weight
-- [ ]  Checkbox to confirm that the whole workout was successful
+- [x]  Checkboxes next to each set to confirm that user succeeded at lifting given weight
 - [x]  Those should be displayed in separate cards
 - [x] Users should be able to register, login and save their progress
+</del>
+
+## Strenght Hub offers full MVP functionality
 
 ### Further thoughts
 
+- [ ] Clean code, write comments to clarify and describe program
 - [ ] User should be able to customize the plan
 - [ ] Comparisons how user stacks against other users
 - [ ] Visual representation of progress
