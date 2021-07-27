@@ -114,3 +114,17 @@
     transform: rotate(360deg);
   }
 }
+
+/* Loading Spinner */
+
+/* Navbar */
+
+#sortbox:checked ~ #sortboxmenu {
+  opacity: 1;
+}
+
+#sortbox:checked ~ #triangle-bottomright {
+  opacity: 1;
+}
+
+/* Navbar */
