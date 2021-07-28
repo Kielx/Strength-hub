@@ -8,6 +8,7 @@ import CreateWorkout from "./pages/createWorkout/CreateWorkout";
 import MyWorkout from "./pages/myWorkout/MyWorkout";
 import NotFound from "./pages/notFound/NotFound";
 import Header from "./components/header/header";
+import Navbar from "./components/navbar/Navbar";
 import useIsLoggedIn from "./components/userStatus";
 
 I18n.putVocabularies(dict);
@@ -57,6 +58,7 @@ function App() {
         <Route exact path="/create-workout">
           {isLoggedIn ? (
             <>
+              <Navbar></Navbar>
               <Header
                 isLoggedIn={isLoggedIn}
                 saveData={saveData}

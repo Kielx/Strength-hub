@@ -50,8 +50,8 @@ const header = ({ isLoggedIn, saveData, saved }) => {
       {
         //Responsive screen
       }
-      <header className="flex gap-7 text-gray-400 font-bold justify-end px-10 pt-10 items-center justify-between">
-        <h1 className="font-extrabold text-2xl text-gray-300 uppercase">
+      <header className="flex gap-7 text-gray-400 font-bold px-10 pt-10 items-center justify-between">
+        <h1 className="md:hidden font-extrabold text-2xl text-gray-300 uppercase">
           Strength-Hub
         </h1>
         <div className="relative md:hidden">
@@ -71,7 +71,7 @@ const header = ({ isLoggedIn, saveData, saved }) => {
 
           <div
             id="sortboxmenu"
-            className="absolute w-screen pb-4 pt-8 right-1 top-16 opacity-0 bg-gray-900 text-gray-400 transition delay-75 ease-in-out z-10"
+            className="flex absolute w-screen pb-4 pt-8 right-1 top-16 opacity-0 bg-gray-900 text-gray-400 transition delay-75 ease-in-out z-10"
             style={{ right: "-40px" }}
           >
             <div className="flex flex-col align-middle gap-7 items-center text-lg ">

@@ -1,102 +1,203 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-const Navbar = () => {
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+
+const navigation = [
+  { name: "Dashboard", href: "#", current: true },
+  { name: "Team", href: "#", current: false },
+  { name: "Projects", href: "#", current: false },
+  { name: "Calendar", href: "#", current: false },
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+export default function Example() {
   return (
-    <nav className="flex px-8 py-12">
-      <div className="text-2xl font-extrabold" style={{ flexGrow: "2" }}>
-        sunnyside
-      </div>
-      <div className="hidden md:flex">
-        <a
-          style={{ minWidth: "8rem" }}
-          href="#"
-          className="hover:uppercase text-center hover:font-text hover:text-black hover:rounded-full py-3 hover:px-4 hover:bg-white"
-        >
-          About
-        </a>
-        <a
-          style={{ minWidth: "8rem" }}
-          href="#"
-          className="hover:uppercase text-center hover:font-text hover:text-black hover:rounded-full py-3 hover:px-4 hover:bg-white"
-        >
-          Services
-        </a>
-        <a
-          style={{ minWidth: "8rem" }}
-          href="#"
-          className="hover:uppercase text-center hover:font-text hover:text-black hover:rounded-full py-3 hover:px-4 hover:bg-white"
-        >
-          Projects
-        </a>
-        <a
-          style={{ minWidth: "8rem" }}
-          href="#"
-          className="hover:uppercase text-center hover:font-text hover:text-black hover:rounded-full py-3 hover:px-4 hover:bg-white"
-        >
-          Contact
-        </a>
-      </div>
-      <div className="relative md:hidden">
-        <input type="checkbox" id="sortbox" className="hidden absolute" />
-        <label
-          htmlFor="sortbox"
-          className="flex items-center space-x-1 cursor-pointer"
-        >
-          <svg width="24" height="18" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M24 16v2H0v-2h24zm0-8v2H0V8h24zm0-8v2H0V0h24z"
-              fill="#fff"
-              fillRule="evenodd"
-            />
-          </svg>
-        </label>
+    <Disclosure as="nav" className="bg-gray-800">
+      {({ open }) => (
+        <>
+          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <div className="relative flex items-center justify-between h-16">
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                {/* Mobile menu button*/}
+                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <div
+                      className="flex items-center h-6 w-6"
+                      aria-hidden="true"
+                    >
+                      <svg
+                        width="24"
+                        height="18"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M24 16v2H0v-2h24zm0-8v2H0V8h24zm0-8v2H0V0h24z"
+                          fill="#fff"
+                          fillRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  ) : (
+                    <div
+                      className="flex items-center h-6 w-6"
+                      aria-hidden="true"
+                    >
+                      <svg
+                        width="24"
+                        height="18"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M24 16v2H0v-2h24zm0-8v2H0V8h24zm0-8v2H0V0h24z"
+                          fill="#fff"
+                          fillRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </Disclosure.Button>
+              </div>
+              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                <div className="flex-shrink-0 flex items-center">
+                  <img
+                    className="block lg:hidden h-8 w-auto"
+                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                    alt="Workflow"
+                  />
+                  <img
+                    className="hidden lg:block h-8 w-auto"
+                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                    alt="Workflow"
+                  />
+                </div>
+                <div className="hidden sm:block sm:ml-6">
+                  <div className="flex space-x-4">
+                    {navigation.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className={classNames(
+                          item.current
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium"
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <button className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                  <span className="sr-only">View notifications</span>
+                  <p className="block h-6 w-6" aria-hidden="true">
+                    ICON
+                  </p>
+                </button>
 
-        <div
-          id="triangle-bottomright"
-          className="opacity-0 transition delay-75 ease-in-out z-10"
-        ></div>
-        <div
-          id="sortboxmenu"
-          className="absolute pb-4 pt-8 right-1 top-16 opacity-0 bg-white transition delay-75 ease-in-out z-10"
-          style={{ right: "3px" }}
-        >
-          <ul className="block text-center text-display-veryDarkGrayishBlue">
-            <li style={{ minWidth: "16rem" }} className="py-4">
-              <a
-                className="hover:bg-display-yellow px-6 py-3 cursor-pointer             hover:text-black
-                hover:font-text hover:uppercase hover:rounded-full "
-              >
-                About
-              </a>
-            </li>
-            <li style={{ minWidth: "16rem" }} className="py-4">
-              <a
-                className="hover:bg-display-yellow px-6 py-3 cursor-pointer             hover:text-black
-                hover:font-text hover:uppercase hover:rounded-full "
-              >
-                Services
-              </a>
-            </li>
-            <li style={{ minWidth: "16rem" }} className="py-4">
-              <a
-                className="hover:bg-display-yellow px-6 py-3 cursor-pointer             hover:text-black
-                hover:font-text hover:uppercase hover:rounded-full "
-              >
-                Projects
-              </a>
-            </li>
-            <li style={{ minWidth: "16rem" }} className="py-4">
-              <a
-                className="hover:bg-display-yellow px-6 py-3 cursor-pointer             hover:text-black
-                hover:font-text hover:uppercase hover:rounded-full "
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+                {/* Profile dropdown */}
+                <Menu as="div" className="ml-3 relative">
+                  {({ open }) => (
+                    <>
+                      <div>
+                        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                          <span className="sr-only">Open user menu</span>
+                          <img
+                            className="h-8 w-8 rounded-full"
+                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                          />
+                        </Menu.Button>
+                      </div>
+                      <Transition
+                        show={open}
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items
+                          static
+                          className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        >
+                          <Menu.Item>
+                            {({ active }) => (
+                              <a
+                                href="#"
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
+                                Your Profile
+                              </a>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <a
+                                href="#"
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
+                                Settings
+                              </a>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <a
+                                href="#"
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
+                                Sign out
+                              </a>
+                            )}
+                          </Menu.Item>
+                        </Menu.Items>
+                      </Transition>
+                    </>
+                  )}
+                </Menu>
+              </div>
+            </div>
+          </div>
+
+          <Disclosure.Panel className="sm:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {navigation.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className={classNames(
+                    item.current
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                    "block px-3 py-2 rounded-md text-base font-medium"
+                  )}
+                  aria-current={item.current ? "page" : undefined}
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
   );
-};
-
-export default Navbar;
+}
