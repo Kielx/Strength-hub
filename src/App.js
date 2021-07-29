@@ -52,6 +52,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <>
+            <Navbar></Navbar>
             <Home />
           </>
         </Route>
@@ -76,6 +77,7 @@ function App() {
         <Route exact path="/my-workout">
           {isLoggedIn ? (
             <>
+              <Navbar></Navbar>
               <Header
                 isLoggedIn={isLoggedIn}
                 saveData={saveData}
