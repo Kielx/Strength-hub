@@ -17,14 +17,16 @@ const handleSignOutButtonClick = async () => {
   }
 };
 
-const CustomSignOutButton = () => {
+const CustomSignOutButton = ({ active }) => {
   return (
-    <button
+    <a
       onClick={handleSignOutButtonClick}
-      className="btn-primary bg-transparent border-2 border-blue-500"
+      className={`${
+        active ? "bg-gray-100" : ""
+      }block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100`}
     >
       Sign out
-    </button>
+    </a>
   );
 };
 

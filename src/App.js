@@ -7,7 +7,6 @@ import Home from "./pages/home/Home";
 import CreateWorkout from "./pages/createWorkout/CreateWorkout";
 import MyWorkout from "./pages/myWorkout/MyWorkout";
 import NotFound from "./pages/notFound/NotFound";
-import Header from "./components/header/header";
 import Navbar from "./components/navbar/Navbar";
 import useIsLoggedIn from "./components/userStatus";
 
@@ -52,19 +51,17 @@ function App() {
       <Switch>
         <Route exact path="/">
           <>
-            <Navbar></Navbar>
             <Home />
           </>
         </Route>
         <Route exact path="/create-workout">
           {isLoggedIn ? (
             <>
-              <Navbar></Navbar>
-              <Header
+              <Navbar
                 isLoggedIn={isLoggedIn}
                 saveData={saveData}
                 saved={saved}
-              />
+              ></Navbar>
               <CreateWorkout
                 userData={userData}
                 setUserData={setUserData}
@@ -77,12 +74,12 @@ function App() {
         <Route exact path="/my-workout">
           {isLoggedIn ? (
             <>
-              <Navbar></Navbar>
-              <Header
+              <Navbar
                 isLoggedIn={isLoggedIn}
                 saveData={saveData}
                 saved={saved}
-              />
+              ></Navbar>
+
               <MyWorkout
                 userData={userData}
                 setUserData={setUserData}
