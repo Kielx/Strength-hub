@@ -4,8 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import CustomSignOutButton from "../customSignOutButton/customSignOutButton";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: false },
-  { name: "Dashboard", link: "/", current: false },
+  //{ name: "Dashboard", href: "#", current: false },
+  //{ name: "Home", link: "/", current: false },
   { name: "Create Workout", link: "/create-workout", current: false },
   { name: "My Workout", link: "/my-workout", current: false },
 ];
@@ -91,8 +91,8 @@ export default function Navbar({ isLoggedIn, saveData, saved }) {
                   </Disclosure.Button>
                 </div>
                 {/* Logo*/}
-                <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                  <h1 className="font-extrabold text-2xl text-gray-300 uppercase">
+                <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-end">
+                  <h1 className="font-extrabold text-2xl text-gray-300 uppercase sm:mr-auto">
                     Strength-Hub
                   </h1>
                   <div className="hidden sm:block sm:ml-6">
