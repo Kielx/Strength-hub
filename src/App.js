@@ -35,11 +35,9 @@ function App() {
       });
     }
     if (res) {
-      console.log(res);
       setSaved(true);
       const newFiveThreeOne = res.updated.fiveThreeOne;
       setUserData({ ...userData, fiveThreeOne: newFiveThreeOne });
-      console.log(userData);
       setTimeout(() => {
         setSaved(false);
       }, 5000);
@@ -57,11 +55,7 @@ function App() {
         <Route exact path="/create-workout">
           {isLoggedIn ? (
             <>
-              <Navbar
-                isLoggedIn={isLoggedIn}
-                saveData={saveData}
-                saved={saved}
-              ></Navbar>
+              <Navbar saved={saved}></Navbar>
               <CreateWorkout
                 userData={userData}
                 setUserData={setUserData}
@@ -83,6 +77,8 @@ function App() {
               <MyWorkout
                 userData={userData}
                 setUserData={setUserData}
+                saveData={saveData}
+                isLoggedIn={isLoggedIn}
               ></MyWorkout>
             </>
           ) : (

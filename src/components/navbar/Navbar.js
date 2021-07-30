@@ -129,18 +129,6 @@ export default function Navbar({ isLoggedIn, saveData, saved }) {
                           </Link>
                         )
                       )}
-                      {isLoggedIn ? (
-                        <>
-                          <button className="btn-primary" onClick={saveData}>
-                            Save workout
-                          </button>
-                        </>
-                      ) : (
-                        <Link to="/login">
-                          {" "}
-                          <button>Login</button>
-                        </Link>
-                      )}
                     </div>
                   </div>
                 </div>
