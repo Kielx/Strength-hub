@@ -13,15 +13,25 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
   }
 
   JSON.sort = function (o) {
+    //check if o is an object and its keys contain part of word "week"
     if (isObject(o)) {
-      return Object.keys(o)
+      console.log(Object.keys(o));
+      return (
+        Object.keys(o)
+          //sort week number string by number
+          .sort(function (a, b) {
+            if (a.match(/(\d+)/g) && b.match(/(\d+)/g)) {
+              return (
+                Number(a.match(/(\d+)/g)[0]) - Number(b.match(/(\d+)/g)[0])
+              );
+            } else return "";
+          })
+          .reduce(function (a, k) {
+            a[k] = JSON.sort(o[k]);
 
-        .sort()
-        .reduce(function (a, k) {
-          a[k] = JSON.sort(o[k]);
-
-          return a;
-        }, {});
+            return a;
+          }, {})
+      );
     }
 
     return o;
