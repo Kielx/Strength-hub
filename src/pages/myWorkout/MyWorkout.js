@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { Auth, API } from "aws-amplify";
 import { Link } from "react-router-dom";
 
-const MyWorkout = ({ userData, setUserData }) => {
+const MyWorkout = ({ userData, setUserData, saveData }) => {
   const [loading, setLoading] = useState(true);
 
   //Sort returned storage object by its keys
@@ -15,6 +15,7 @@ const MyWorkout = ({ userData, setUserData }) => {
   JSON.sort = function (o) {
     if (isObject(o)) {
       return Object.keys(o)
+
         .sort()
         .reduce(function (a, k) {
           a[k] = JSON.sort(o[k]);
@@ -217,7 +218,16 @@ const MyWorkout = ({ userData, setUserData }) => {
         </div>
       );
     }
-    return finalLifts;
+    return (
+      <>
+        <div className="cardsContainer w-full flex flex-wrap gap-10 justify-center pt-10">
+          <button className="btn-primary px-6" onClick={saveData}>
+            Save workout
+          </button>
+        </div>
+        <>{finalLifts}</>
+      </>
+    );
   };
 
   if (loading) {
@@ -241,7 +251,7 @@ const MyWorkout = ({ userData, setUserData }) => {
   } else {
     return (
       <>
-        <div className="cardsContainer w-full flex flex-wrap gap-10 justify-center p-10 pt-20">
+        <div className="cardsContainer w-full flex flex-wrap gap-10 justify-center p-10">
           {mapLifts(userData)}
         </div>
       </>

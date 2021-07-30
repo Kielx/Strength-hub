@@ -7,7 +7,7 @@ import Home from "./pages/home/Home";
 import CreateWorkout from "./pages/createWorkout/CreateWorkout";
 import MyWorkout from "./pages/myWorkout/MyWorkout";
 import NotFound from "./pages/notFound/NotFound";
-import Header from "./components/header/header";
+import Navbar from "./components/navbar/Navbar";
 import useIsLoggedIn from "./components/userStatus";
 
 I18n.putVocabularies(dict);
@@ -35,11 +35,9 @@ function App() {
       });
     }
     if (res) {
-      console.log(res);
       setSaved(true);
       const newFiveThreeOne = res.updated.fiveThreeOne;
       setUserData({ ...userData, fiveThreeOne: newFiveThreeOne });
-      console.log(userData);
       setTimeout(() => {
         setSaved(false);
       }, 5000);
@@ -57,11 +55,7 @@ function App() {
         <Route exact path="/create-workout">
           {isLoggedIn ? (
             <>
-              <Header
-                isLoggedIn={isLoggedIn}
-                saveData={saveData}
-                saved={saved}
-              />
+              <Navbar saved={saved}></Navbar>
               <CreateWorkout
                 userData={userData}
                 setUserData={setUserData}
@@ -74,14 +68,17 @@ function App() {
         <Route exact path="/my-workout">
           {isLoggedIn ? (
             <>
-              <Header
+              <Navbar
                 isLoggedIn={isLoggedIn}
                 saveData={saveData}
                 saved={saved}
-              />
+              ></Navbar>
+
               <MyWorkout
                 userData={userData}
                 setUserData={setUserData}
+                saveData={saveData}
+                isLoggedIn={isLoggedIn}
               ></MyWorkout>
             </>
           ) : (
