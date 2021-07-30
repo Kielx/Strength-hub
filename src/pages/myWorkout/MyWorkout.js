@@ -22,7 +22,7 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
           .sort(function (a, b) {
             if (a.match(/(\d+)/g) && b.match(/(\d+)/g)) {
               return (
-                Number(a.match(/(\d+)/g)[0]) - Number(b.match(/(\d+)/g)[0])
+                Number(b.match(/(\d+)/g)[0]) - Number(a.match(/(\d+)/g)[0])
               );
             } else return "";
           })
@@ -142,8 +142,8 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
                   : //Check if current week is equal to week in question
                   key1.replace(/^\D+/g, "") ==
                     userData.oneRepMax["Current Week"]
-                  ? "text-blue-500"
-                  : "text-gray-500"
+                  ? "text-blue-500 "
+                  : "text-gray-500 "
               } 
                 
               `}
@@ -192,7 +192,12 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
     for (const [key1, val1] of Object.entries(lifts)) {
       finalLifts.push(
         <div
-          className="card max-w-md bg-gray-900 rounded  shadow-sm transition-colors"
+          className={`card max-w-md bg-gray-900 rounded  shadow-sm transition-colors ${
+            //Check if current week is equal to week in question, if yes set it at the top of the card list
+            key1.replace(/^\D+/g, "") == userData.oneRepMax["Current Week"]
+              ? "order-1"
+              : "order-2 "
+          } `}
           //Onclick sets current week equal to week in question
           onClick={(event) => {
             const key = key1.replace(/^\D+/g, ""); // replace all leading non-digits with nothing
@@ -203,7 +208,7 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
         >
           <div
             className={`card-header py-3 text-2xl font-extrabold text-center  uppercase rounded-t flex justify-center items-center cursor-pointer ${
-              //Check if current week is equal to week in question
+              //Check if current week is equal to week in question if yes set background color to blue
               key1.replace(/^\D+/g, "") == userData.oneRepMax["Current Week"]
                 ? "bg-blue-600"
                 : "bg-gray-600"
