@@ -15,6 +15,7 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
   JSON.sort = function (o) {
     if (isObject(o)) {
       return Object.keys(o)
+
         .sort()
         .reduce(function (a, k) {
           a[k] = JSON.sort(o[k]);

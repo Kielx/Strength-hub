@@ -20,8 +20,6 @@ export default function Navbar({ isLoggedIn, saveData, saved }) {
     //check useLocation to see on which page we are
     //then set navigation.current to true or false
     navigation.forEach((item) => {
-      console.log(pathname);
-      console.log(navigation);
       if (item.hasOwnProperty("link")) {
         if (item.link === pathname) {
           item.current = true;
@@ -248,18 +246,6 @@ export default function Navbar({ isLoggedIn, saveData, saved }) {
                       {item.name}
                     </Link>
                   )
-                )}
-                {isLoggedIn ? (
-                  <>
-                    <button className="btn-primary" onClick={saveData}>
-                      Save workout
-                    </button>
-                  </>
-                ) : (
-                  <Link to="/login">
-                    {" "}
-                    <button>Login</button>
-                  </Link>
                 )}
               </div>
             </Disclosure.Panel>
