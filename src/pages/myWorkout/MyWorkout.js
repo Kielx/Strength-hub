@@ -167,22 +167,22 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
             >
               {key2}
             </h3>
-            <div className="flex px-3 w-full flex-wrap justify-between font-bold text-gray-500 text-xl">
-              <span className="w-24">Weight</span> <span>REPS:</span>
-              <span>Done</span>
+            <div className="grid grid-cols-3 text-center px-3 w-full justify-between font-bold text-gray-500 text-xl">
+              <span className="text-left">Weight</span> <span>REPS:</span>
+              <span className="text-right">Done</span>
             </div>
             {val2.increments.map((item, index) => {
               return (
                 <div
                   key={`${index} ${item}`}
-                  className="flex px-3 w-full flex-wrap justify-between text-gray-400 font-semibold text-xl  "
+                  className="grid grid-cols-3 px-3 w-full  justify-between text-gray-400 font-semibold text-xl  "
                 >
-                  <span className="sm:w-20">
+                  <span className="text-left">
                     {item.toString(10).slice(0, 5) + " kg"}
                   </span>
-                  <span className="">{val2.reps[index]}</span>
+                  <span className="text-center">{val2.reps[index]}</span>
                   <input
-                    className={`transition-colors  ${
+                    className={`transition-colors justify-self-end ${
                       userData.fiveThreeOne[key1][key2].done.every(
                         (v) => v === true
                       )
@@ -202,8 +202,8 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
               );
             })}
 
-            <div className="text-center w-full text-xl font-bold text-gray-500 py-2">
-              Secondary lifts:
+            <div className="text-center w-full text-xl font-bold text-gray-500 pt-4">
+              <span>Secondary lifts:</span>
               {console.log(Object.values(secondaryLifts[key2]))}
               {Object.values(secondaryLifts[key2]).map((item) => {
                 return (
