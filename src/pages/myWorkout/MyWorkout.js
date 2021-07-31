@@ -201,6 +201,13 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
           onClick={(event) => {
             const key = key1.replace(/^\D+/g, ""); // replace all leading non-digits with nothing
             const newData = { ...userData };
+            //Check if current week is equal to week in question, if no then scroll to top
+            if (
+              key1.replace(/^\D+/g, "") != userData.oneRepMax["Current Week"]
+            ) {
+              window.scrollTo(0, 0);
+            }
+            //Set current week equal to the week card clicked on
             newData.oneRepMax["Current Week"] = parseInt(key, 10);
             setUserData(newData);
           }}
