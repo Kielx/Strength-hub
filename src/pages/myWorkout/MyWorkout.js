@@ -4,6 +4,24 @@ import { Link } from "react-router-dom";
 
 const MyWorkout = ({ userData, setUserData, saveData }) => {
   const [loading, setLoading] = useState(true);
+  const [secondaryLifts, setSecondaryLifts] = useState({
+    "Bench Press": [
+      { name: "Dumbbell Chest Press", sets: 5, reps: 15 },
+      { name: "Dumbbell Row", sets: 5, reps: 10 },
+    ],
+    Squat: [
+      { name: "Leg press", sets: 5, reps: 15 },
+      { name: "Leg Curl", sets: 5, reps: 10 },
+    ],
+    Deadlift: [
+      { name: "Good Morning", sets: 5, reps: 12 },
+      { name: "Hanging Leg Raise", sets: 5, reps: 15 },
+    ],
+    "Overhead Press": [
+      { name: "Dip", sets: 5, reps: 15 },
+      { name: "Chin Up", sets: 5, reps: 10 },
+    ],
+  });
 
   //Sort returned storage object by its keys
   //https://stackoverflow.com/questions/17684921/sort-json-object-in-javascript
@@ -183,6 +201,20 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
                 </div>
               );
             })}
+
+            <div className="text-center w-full text-xl font-bold text-gray-500 py-2">
+              Secondary lifts:
+              {console.log(Object.values(secondaryLifts[key2]))}
+              {Object.values(secondaryLifts[key2]).map((item) => {
+                return (
+                  <div className="grid grid-cols-3 min-w-full px-3">
+                    <span className="pb-1 text-left">{`${item.name} `}</span>
+                    <span>SETS: {item.sets}</span>
+                    <span className="text-right">REPS: {item.reps}</span>
+                  </div>
+                );
+              })}
+            </div>
           </>
         );
       }
