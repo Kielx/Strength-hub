@@ -253,18 +253,18 @@ export default function Navbar({ isLoggedIn, saveData, saved }) {
         )}
       </Disclosure>
       <div
-        class={`bg-indigo-900 text-center py-4 lg:px-4 ${
+        className={`bg-indigo-900 text-center py-4 lg:px-4 ${
           saved ? "absolute inset-x-0 md:top-20 top-32" : "hidden"
         }`}
       >
         <div
-          class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
+          className="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
           role="alert"
         >
-          <span class="flex rounded-full bg-indigo-600 uppercase px-2 py-1 text-xs font-bold mr-3">
+          <span className="flex rounded-full bg-indigo-600 uppercase px-2 py-1 text-xs font-bold mr-3">
             SUCCESS
           </span>
-          <span class="font-semibold mr-2 text-left flex-auto">
+          <span className="font-semibold mr-2 text-left flex-auto">
             Your workout was saved!
           </span>
         </div>

@@ -157,7 +157,7 @@ const CreateWorkout = ({ userData, setUserData }) => {
         {/* <span className="text-3xl text-gray-300 font-extrabold m-auto">
           Loading...
         </span> */}
-        <div class="lds-roller m-auto">
+        <div className="lds-roller m-auto">
           <div></div>
           <div></div>
           <div></div>
