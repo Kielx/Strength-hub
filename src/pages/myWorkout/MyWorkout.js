@@ -15,7 +15,6 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
   JSON.sort = function (o) {
     //check if o is an object and its keys contain part of word "week"
     if (isObject(o)) {
-      console.log(Object.keys(o));
       return (
         Object.keys(o)
           //sort week number string by number
@@ -142,7 +141,7 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
                   : //Check if current week is equal to week in question
                   key1.replace(/^\D+/g, "") ==
                     userData.oneRepMax["Current Week"]
-                  ? "text-blue-500 "
+                  ? "text-blue-500 text-xl "
                   : "text-gray-500 "
               } 
                 
@@ -195,8 +194,8 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
           className={`card max-w-md bg-gray-900 rounded  shadow-sm transition-colors ${
             //Check if current week is equal to week in question, if yes set it at the top of the card list
             key1.replace(/^\D+/g, "") == userData.oneRepMax["Current Week"]
-              ? "order-1"
-              : "order-2 "
+              ? "order-1 max-w-xl "
+              : "order-3 "
           } `}
           //Onclick sets current week equal to week in question
           onClick={(event) => {
@@ -210,7 +209,7 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
             className={`card-header py-3 text-2xl font-extrabold text-center  uppercase rounded-t flex justify-center items-center cursor-pointer ${
               //Check if current week is equal to week in question if yes set background color to blue
               key1.replace(/^\D+/g, "") == userData.oneRepMax["Current Week"]
-                ? "bg-blue-600"
+                ? "bg-blue-600 text-3xl"
                 : "bg-gray-600"
             }`}
           >
@@ -233,6 +232,9 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
         </div>
       );
     }
+    //Add spacer so the current week is at the top
+    finalLifts.splice(2, 0, <div className="w-full order-2"></div>);
+
     return (
       <>
         <div className="cardsContainer w-full flex flex-wrap gap-10 justify-center pt-10">
