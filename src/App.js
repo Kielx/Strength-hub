@@ -1,14 +1,14 @@
-import { React, useState } from "react";
+import { React, useState, Suspense, lazy } from "react";
 import { AmplifyAuthenticator, AmplifySignIn } from "@aws-amplify/ui-react";
 import { I18n, Auth, API } from "aws-amplify";
 import { dict } from "./helpers/trans";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Home from "./pages/home/Home";
-import CreateWorkout from "./pages/createWorkout/CreateWorkout";
-import MyWorkout from "./pages/myWorkout/MyWorkout";
-import NotFound from "./pages/notFound/NotFound";
-import Navbar from "./components/navbar/Navbar";
 import useIsLoggedIn from "./components/userStatus";
+const Home = lazy(() => import("./pages/home/Home"));
+const CreateWorkout = lazy(() => import("./pages/createWorkout/CreateWorkout"));
+const MyWorkout = lazy(() => import("./pages/myWorkout/MyWorkout"));
+const NotFound = lazy(() => import("./pages/notFound/NotFound"));
+const Navbar = lazy(() => import("./components/navbar/Navbar"));
 
 I18n.putVocabularies(dict);
 
@@ -46,59 +46,61 @@ function App() {
 
   return (
     <>
-      <Switch>
-        <Route exact path="/">
-          <>
-            <Home />
-          </>
-        </Route>
-        <Route exact path="/create-workout">
-          {isLoggedIn ? (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
+          <Route exact path="/">
             <>
-              <Navbar saved={saved}></Navbar>
-              <CreateWorkout
-                userData={userData}
-                setUserData={setUserData}
-              ></CreateWorkout>
+              <Home />
             </>
-          ) : (
-            <Redirect to="/login" />
-          )}
-        </Route>
-        <Route exact path="/my-workout">
-          {isLoggedIn ? (
-            <>
-              <Navbar
-                isLoggedIn={isLoggedIn}
-                saveData={saveData}
-                saved={saved}
-              ></Navbar>
+          </Route>
+          <Route exact path="/create-workout">
+            {isLoggedIn ? (
+              <>
+                <Navbar saved={saved}></Navbar>
+                <CreateWorkout
+                  userData={userData}
+                  setUserData={setUserData}
+                ></CreateWorkout>
+              </>
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
+          <Route exact path="/my-workout">
+            {isLoggedIn ? (
+              <>
+                <Navbar
+                  isLoggedIn={isLoggedIn}
+                  saveData={saveData}
+                  saved={saved}
+                ></Navbar>
 
-              <MyWorkout
-                userData={userData}
-                setUserData={setUserData}
-                saveData={saveData}
-                isLoggedIn={isLoggedIn}
-              ></MyWorkout>
-            </>
-          ) : (
-            <Redirect to="/login" />
-          )}
-        </Route>
-        <Route path="/login">
-          {isLoggedIn ? (
-            <Redirect to="/my-workout" />
-          ) : (
-            <AmplifyAuthenticator>
-              <AmplifySignIn></AmplifySignIn>
-            </AmplifyAuthenticator>
-          )}
-        </Route>
+                <MyWorkout
+                  userData={userData}
+                  setUserData={setUserData}
+                  saveData={saveData}
+                  isLoggedIn={isLoggedIn}
+                ></MyWorkout>
+              </>
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
+          <Route path="/login">
+            {isLoggedIn ? (
+              <Redirect to="/my-workout" />
+            ) : (
+              <AmplifyAuthenticator>
+                <AmplifySignIn></AmplifySignIn>
+              </AmplifyAuthenticator>
+            )}
+          </Route>
 
-        <Route path="*">
-          <NotFound />
-        </Route>
-      </Switch>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+      </Suspense>
     </>
   );
 }
