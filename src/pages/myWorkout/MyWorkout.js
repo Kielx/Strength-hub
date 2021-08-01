@@ -132,7 +132,7 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
 
           <Link
             to="/create-workout"
-            className="shadow-md font-medium py-3 px-6 text-white cursor-pointer bg-blue-600 hover:bg-blue-500 rounded text-lg text-center w-48 transition-colors active:relative"
+            className="shadow-md font-medium py-3 px-6 text-white cursor-pointer bg-yellow-600 hover:bg-yellow-500 rounded text-lg text-center w-48 transition-colors active:relative"
           >
             Click here to create some
           </Link>
@@ -152,14 +152,14 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
               //Nested ternaries check if all checkboxes are true
               //If yes color is green
               //If not checks if current week is true
-              //If yes color is blue, otherwise its gray
+              //If yes color is yellow, otherwise its gray
               className={`text-lg font-extrabold uppercase text-center w-1/2 m-auto transition-colors  ${
                 userData.fiveThreeOne[key1][key2].done.every((v) => v === true)
                   ? "text-green-600  "
                   : //Check if current week is equal to week in question
                   key1.replace(/^\D+/g, "") ==
                     userData.oneRepMax["Current Week"]
-                  ? "text-blue-500 text-xl "
+                  ? "text-yellow-500 text-xl "
                   : "text-gray-500 "
               } 
                 
@@ -187,7 +187,7 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
                         (v) => v === true
                       )
                         ? "text-green-600  "
-                        : "text-blue-500"
+                        : "text-yellow-500"
                     } `}
                     type="checkbox"
                     defaultChecked={val2.done[index]}
@@ -249,9 +249,9 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
         >
           <div
             className={`card-header py-3 text-2xl font-extrabold text-center  uppercase rounded-t flex justify-center items-center cursor-pointer ${
-              //Check if current week is equal to week in question if yes set background color to blue
+              //Check if current week is equal to week in question if yes set background color to yellow
               key1.replace(/^\D+/g, "") == userData.oneRepMax["Current Week"]
-                ? "bg-blue-600 text-3xl"
+                ? "bg-yellow-600 text-3xl"
                 : "bg-gray-600"
             }`}
           >

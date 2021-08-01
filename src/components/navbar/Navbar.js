@@ -2,6 +2,7 @@ import { Fragment, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Link, useLocation } from "react-router-dom";
 import CustomSignOutButton from "../customSignOutButton/customSignOutButton";
+import logo from "../../assets/images/Strength-hub-logo-sm.webp";
 
 const navigation = [
   //{ name: "Dashboard", href: "#", current: false },
@@ -89,12 +90,14 @@ export default function Navbar({ isLoggedIn, saveData, saved }) {
                   </Disclosure.Button>
                 </div>
                 {/* Logo*/}
-                <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-end">
-                  <h1 className="font-extrabold text-2xl text-gray-300 uppercase sm:mr-auto">
-                    Strength-Hub
-                  </h1>
+                <div className="flex-1 flex justify-center sm:items-center sm:justify-end">
+                  <img
+                    alt="logo"
+                    className="my-auto sm:mr-auto max-h-16"
+                    src={logo}
+                  />
                   <div className="hidden sm:block sm:ml-6">
-                    <div className="flex space-x-4">
+                    <div className="flex space-x-4 items-bottom justify-center">
                       {/* Map Navigation items - href or links to pages*/}
                       {navigation.map((item) =>
                         item.hasOwnProperty("href") ? (

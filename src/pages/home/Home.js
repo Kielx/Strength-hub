@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import main from "../../assets/images/main.webp";
+import logo from "../../assets/images/Strength-hub-logo-md.webp";
 
 export default function Home() {
   return (
@@ -9,17 +10,15 @@ export default function Home() {
       <div className="m-auto max-w-6xl p-12">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/2 max-w-md flex flex-col justify-center xl:mr-12">
-            <div className="md:text-5xl text-2xl uppercase font-black text-gray-300">
-              Strength Hub
-            </div>
-            <div className="text-xl font-semibold text-gray-400 mt-4">
+            <img alt="logo" className="w-3/4 mx-auto" src={logo} />
+            <div className="text-xl font-semibold text-gray-400 mt-8 text-center">
               Plan your strength gains. Focus on training. We'll do the rest.
             </div>
-            <div className="my-5 h-16 ">
+            <div className="my-5 h-16 m-auto pt-6">
               <Link
                 to="/login"
                 className="shadow-md font-medium py-3 px-6 text-white
-           cursor-pointer bg-blue-600 hover:bg-blue-500 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
+           cursor-pointer bg-yellow-600 hover:bg-yellow-500 rounded text-lg text-center w-48 transition-colors active:relative active: top-px"
               >
                 Join us now
               </Link>

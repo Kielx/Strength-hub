@@ -143,7 +143,7 @@ const CreateWorkout = ({ userData, setUserData }) => {
             type="number"
             name={lift}
             value={userData.oneRepMax[lift]}
-            className="w-1/6 m-auto text-center font-extrabold text-xl bg-gray-900 text-blue-500 shadow-sm"
+            className="w-1/6 m-auto text-center font-extrabold text-xl bg-gray-900 text-yellow-500 shadow-sm"
           ></input>
         </label>
       );
