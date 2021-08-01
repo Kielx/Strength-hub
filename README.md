@@ -1,9 +1,9 @@
-# 💪 Strength-Hub
+<div align="center">
+<img alt="logo" src="https://github.com/Kielx/Strength-Hub/blob/master/src/assets/images/Strength-hub-logo-md.webp?raw=true"  />
+</div>
 
 ![GitHub issues](https://img.shields.io/github/issues-raw/kielx/strength-hub?logo=github)
 ![GitHub](https://img.shields.io/github/license/kielx/strength-hub)
-
-A place to track your strength training plans
 
 ## App overview
 
@@ -33,6 +33,7 @@ The second point is the hard part. People either give up at that point or if the
 - [x] Users should be able to register, login and save their progress
   
 </del>
+
 ### Further thoughts
 
 - [ ] Clean code, write comments to clarify and describe program
