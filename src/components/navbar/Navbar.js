@@ -120,8 +120,8 @@ export default function Navbar({ isLoggedIn, saveData, saved }) {
                             to={item.link}
                             className={classNames(
                               item.current
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                ? "bg-gray-900 text-yellow-500"
+                                : "text-gray-300 hover:bg-gray-700 hover:text-yellow-600",
                               "px-3 py-2 rounded-md text-sm font-medium"
                             )}
                             aria-current={item.current ? "page" : undefined}
@@ -173,9 +173,9 @@ export default function Navbar({ isLoggedIn, saveData, saved }) {
                         >
                           <Menu.Items
                             static
-                            className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none"
                           >
-                            <Menu.Item>
+                            {/* <Menu.Item>
                               {({ active }) => (
                                 <a
                                   href="#"
@@ -200,7 +200,7 @@ export default function Navbar({ isLoggedIn, saveData, saved }) {
                                   Settings
                                 </a>
                               )}
-                            </Menu.Item>
+                            </Menu.Item> */}
                             <Menu.Item>
                               {({ active }) => (
                                 <CustomSignOutButton active={active}>

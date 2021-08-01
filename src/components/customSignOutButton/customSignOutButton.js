@@ -22,8 +22,8 @@ const CustomSignOutButton = ({ active }) => {
     <a
       onClick={handleSignOutButtonClick}
       className={`${
-        active ? "bg-gray-100" : ""
-      }block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100`}
+        active ? "bg-gray-800 text-yellow-500" : ""
+      }block px-4 py-2 text-sm text-gray-300 cursor-pointer hover:bg-gray-900 hover:text-yellow-500`}
     >
       Sign out
     </a>
