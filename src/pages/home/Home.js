@@ -10,7 +10,9 @@ export default function Home() {
       <div className="m-auto max-w-6xl p-12">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/2 max-w-md flex flex-col justify-center xl:mr-12 lg:-mt-52">
-            <img alt="logo" className="w-3/4 mx-auto" src={logo} />
+            <Link to="/login">
+              <img alt="logo" className="w-3/4 mx-auto" src={logo} />
+            </Link>
             <div className="text-xl font-semibold text-gray-400 mt-8 text-center">
               Plan your strength gains. Focus on training. We'll do the rest.
             </div>
