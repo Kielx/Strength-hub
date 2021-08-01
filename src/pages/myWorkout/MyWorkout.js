@@ -202,9 +202,12 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
               );
             })}
 
-            <div className="text-center w-full text-xl font-bold text-gray-500 pt-4">
+            <div
+              className={`text-center w-full text-lg font-bold text-gray-500 py-4 border-b border-gray-700 ${
+                key2 === "Overhead Press" ? "border-none" : ""
+              }`}
+            >
               <span>Secondary lifts:</span>
-              {console.log(Object.values(secondaryLifts[key2]))}
               {Object.values(secondaryLifts[key2]).map((item) => {
                 return (
                   <div className="grid grid-cols-3 min-w-full px-3">
