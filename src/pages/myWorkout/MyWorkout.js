@@ -4,6 +4,24 @@ import { Link } from "react-router-dom";
 
 const MyWorkout = ({ userData, setUserData, saveData }) => {
   const [loading, setLoading] = useState(true);
+  const [secondaryLifts, setSecondaryLifts] = useState({
+    "Bench Press": [
+      { name: "Dumbbell Chest Press", sets: 5, reps: 15 },
+      { name: "Dumbbell Row", sets: 5, reps: 10 },
+    ],
+    Squat: [
+      { name: "Leg press", sets: 5, reps: 15 },
+      { name: "Leg Curl", sets: 5, reps: 10 },
+    ],
+    Deadlift: [
+      { name: "Good Morning", sets: 5, reps: 12 },
+      { name: "Hanging Leg Raise", sets: 5, reps: 15 },
+    ],
+    "Overhead Press": [
+      { name: "Dip", sets: 5, reps: 15 },
+      { name: "Chin Up", sets: 5, reps: 10 },
+    ],
+  });
 
   //Sort returned storage object by its keys
   //https://stackoverflow.com/questions/17684921/sort-json-object-in-javascript
@@ -149,22 +167,22 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
             >
               {key2}
             </h3>
-            <div className="flex px-3 w-full flex-wrap justify-between font-bold text-gray-500 text-xl">
-              <span className="w-24">Weight</span> <span>REPS:</span>
-              <span>Done</span>
+            <div className="grid grid-cols-3 text-center px-3 w-full justify-between font-bold text-gray-500 text-xl">
+              <span className="text-left">Weight</span> <span>REPS:</span>
+              <span className="text-right">Done</span>
             </div>
             {val2.increments.map((item, index) => {
               return (
                 <div
                   key={`${index} ${item}`}
-                  className="flex px-3 w-full flex-wrap justify-between text-gray-400 font-semibold text-xl  "
+                  className="grid grid-cols-3 px-3 w-full  justify-between text-gray-400 font-semibold text-xl  "
                 >
-                  <span className="sm:w-20">
+                  <span className="text-left">
                     {item.toString(10).slice(0, 5) + " kg"}
                   </span>
-                  <span className="">{val2.reps[index]}</span>
+                  <span className="text-center">{val2.reps[index]}</span>
                   <input
-                    className={`transition-colors  ${
+                    className={`transition-colors justify-self-end ${
                       userData.fiveThreeOne[key1][key2].done.every(
                         (v) => v === true
                       )
@@ -183,6 +201,23 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
                 </div>
               );
             })}
+
+            <div
+              className={`text-center w-full text-lg font-bold text-gray-500 py-4 border-b border-gray-700 ${
+                key2 === "Overhead Press" ? "border-none" : ""
+              }`}
+            >
+              <span>Secondary lifts:</span>
+              {Object.values(secondaryLifts[key2]).map((item) => {
+                return (
+                  <div className="grid grid-cols-3 min-w-full px-3">
+                    <span className="pb-1 text-left">{`${item.name} `}</span>
+                    <span>SETS: {item.sets}</span>
+                    <span className="text-right">REPS: {item.reps}</span>
+                  </div>
+                );
+              })}
+            </div>
           </>
         );
       }
