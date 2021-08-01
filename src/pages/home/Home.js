@@ -9,7 +9,7 @@ export default function Home() {
     <div className="flex h-full">
       <div className="m-auto max-w-6xl p-12">
         <div className="flex flex-col md:flex-row">
-          <div className="md:w-1/2 max-w-md flex flex-col justify-center xl:mr-12">
+          <div className="md:w-1/2 max-w-md flex flex-col justify-center xl:mr-12 lg:-mt-52">
             <img alt="logo" className="w-3/4 mx-auto" src={logo} />
             <div className="text-xl font-semibold text-gray-400 mt-8 text-center">
               Plan your strength gains. Focus on training. We'll do the rest.
@@ -24,7 +24,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="flex md:justify-end w-full md:w-1/2 -mt-5">
+          <div className="flex md:justify-end w-full md:w-1/2 -mt-5 lg:mt-24 xl:mt-40">
             <div className="bg-dots">
               <div className="shadow-2xl max-w-md z-10 rounded-full mt-6 ml-4">
                 <img alt="card img" className="rounded-t" src={main} />
