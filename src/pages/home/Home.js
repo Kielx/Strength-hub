@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import main from "../../assets/images/main.webp";
-import logo from "../../assets/images/Strength-hub-logo-md.webp";
+import logo from "../../assets/images/Strength-hub-logo.webp";
 
 export default function Home() {
   return (
