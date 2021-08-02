@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { Auth, API } from "aws-amplify";
+import LoadingSpinner from "../../components/loadingSpinner/loadingSpinner";
 
 const CreateWorkout = ({ userData, setUserData }) => {
   const [loading, setLoading] = useState(true);
@@ -152,23 +153,7 @@ const CreateWorkout = ({ userData, setUserData }) => {
   };
 
   if (loading) {
-    return (
-      <div className="flex w-full h-screen items-center ">
-        {/* <span className="text-3xl text-gray-300 font-extrabold m-auto">
-          Loading...
-        </span> */}
-        <div className="lds-roller m-auto">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner />;
   } else {
     return (
       <form onSubmit={handleSubmit} className="flex flex-wrap w-full pt-20">

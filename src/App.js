@@ -4,6 +4,7 @@ import { I18n, Auth, API } from "aws-amplify";
 import { dict } from "./helpers/trans";
 import { Switch, Route, Redirect } from "react-router-dom";
 import useIsLoggedIn from "./components/userStatus";
+import LoadingSpinner from "./components/loadingSpinner/loadingSpinner";
 const Home = lazy(() => import("./pages/home/Home"));
 const CreateWorkout = lazy(() => import("./pages/createWorkout/CreateWorkout"));
 const MyWorkout = lazy(() => import("./pages/myWorkout/MyWorkout"));
@@ -46,7 +47,7 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <Switch>
           <Route exact path="/">
             <>

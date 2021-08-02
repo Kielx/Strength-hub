@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { Auth, API } from "aws-amplify";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "../../components/loadingSpinner/loadingSpinner";
 
 const MyWorkout = ({ userData, setUserData, saveData }) => {
   const [loading, setLoading] = useState(true);
@@ -290,23 +291,7 @@ const MyWorkout = ({ userData, setUserData, saveData }) => {
   };
 
   if (loading) {
-    return (
-      <div className="flex w-full h-screen items-center ">
-        {/* <span className="text-3xl text-gray-300 font-extrabold m-auto">
-          Loading...
-        </span> */}
-        <div className="lds-roller m-auto">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner />;
   } else {
     return (
       <>
